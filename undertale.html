@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Undertale</title>
+    <style>
+      :root {
+        --bg: #111827;
+        --panel: #1f2937;
+        --panel-2: #0f172a;
+        --text: #f8f8f2;
+        --muted: #d1d5db;
+        --cyan: #7ee7ff;
+        --pink: #f472b6;
+        --gold: #facc15;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at top, rgba(244, 114, 182, 0.12), transparent 25%),
+                    linear-gradient(180deg, var(--bg), var(--panel-2));
+        color: var(--text);
+        font-family: Arial, sans-serif;
+      }
+
+      .card {
+        width: min(90vw, 620px);
+        background: rgba(17, 24, 39, 0.92);
+        border: 3px solid var(--pink);
+        border-radius: 18px;
+        box-shadow: 0 0 30px rgba(244, 114, 182, 0.18);
+        padding: 28px 24px;
+        text-align: center;
+      }
+
+      .title {
+        margin: 0;
+        font-size: clamp(2.2rem, 6vw, 4rem);
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+
+      .subtitle {
+        margin: 18px 0 24px;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.6;
+      }
+
+      .button-row {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 14px 20px;
+        border-radius: 10px;
+        background: var(--pink);
+        color: #111827;
+        font-weight: 800;
+        text-decoration: none;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .btn.secondary {
+        background: transparent;
+        border: 2px solid var(--cyan);
+        color: var(--cyan);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1 class="title">Undertale</h1>
+      <p class="subtitle">
+        This page is ready to be filled with a game or a custom Undertale-style experience.
+        For now, it acts as a working launcher page.
+      </p>
+
+      <div class="button-row">
+        <a class="btn" href="index.html">Back to Home</a>
+        <a class="btn secondary" href="sm64.html">Play Mario 64</a>
+      </div>
+    </div>
+  </body>
+</html>
