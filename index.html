@@ -7,53 +7,57 @@
     <style>
       body {
         margin: 0;
-        font-family: Arial, sans-serif;
-        background: #0a7d72;
-        color: white;
+        min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 100vh;
+        background: linear-gradient(180deg, #0a7d72, #0d5f58);
+        font-family: Arial, sans-serif;
+        color: white;
       }
 
-      .container {
-        width: 90%;
-        max-width: 500px;
+      .panel {
+        background: rgba(0, 0, 0, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 18px;
+        padding: 32px 24px;
+        width: min(90vw, 500px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
         text-align: center;
       }
 
       h1 {
-        font-size: 2.5rem;
-        margin-bottom: 30px;
+        margin: 0 0 24px;
+        font-size: clamp(2rem, 4vw, 3rem);
       }
 
-      .link {
+      .game-link {
         display: block;
-        margin: 14px auto;
+        margin: 12px auto;
         padding: 16px 20px;
-        width: 100%;
         max-width: 300px;
-        background: rgba(0, 0, 0, 0.2);
-        color: white;
         text-decoration: none;
-        border: 2px solid rgba(255, 255, 255, 0.25);
-        border-radius: 10px;
-        font-size: 1.1rem;
+        color: white;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        font-size: 1.05rem;
         transition: 0.2s ease;
       }
 
-      .link:hover {
-        background: rgba(255, 255, 255, 0.1);
+      .game-link:hover {
+        background: rgba(255, 255, 255, 0.14);
+        transform: translateY(-1px);
       }
     </style>
   </head>
 
   <body>
-    <div class="container">
+    <div class="panel">
       <h1>Game Hub</h1>
 
-      <a class="link" href="sm64.html">Super Mario 64</a>
-      <a class="link" href="snowrider3D.html">Snow Rider 3D</a>
+      <a class="game-link" href="sm64.html">Super Mario 64</a>
+      <a class="game-link" href="snowrider3D.html">Snow Rider 3D</a>
     </div>
   </body>
 </html>
