@@ -3,81 +3,167 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game Hub</title>
+    <title>School Game Hub</title>
     <style>
+      * { box-sizing: border-box; }
+
       body {
         margin: 0;
-        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(180deg, #eaf7f1, #dfeee9);
+        color: #1c2a2a;
+      }
+
+      .topbar {
+        background: #163d3a;
+        color: white;
+        padding: 14px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .brand {
+        font-weight: bold;
+        letter-spacing: 1px;
+        font-size: 1.1rem;
+      }
+
+      .nav {
+        display: flex;
+        gap: 18px;
+        font-size: 0.9rem;
+      }
+
+      .nav a {
+        color: white;
+        text-decoration: none;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 30px auto;
+        padding: 0 20px;
+      }
+
+      .hero {
+        background: #f7fbff;
+        border-left: 10px solid #ffb703;
+        border-radius: 12px;
+        padding: 28px 24px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+      }
+
+      .hero h1 {
+        margin: 0 0 10px;
+        font-size: clamp(2rem, 4vw, 3rem);
+        color: #163d3a;
+      }
+
+      .hero p {
+        margin: 0;
+        font-size: 1rem;
+        color: #355a59;
+      }
+
+      .games {
+        margin-top: 30px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 14px;
+        border: 1px solid #d7e7e2;
+        padding: 20px;
+        box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+        text-decoration: none;
+        color: #1c2a2a;
+        transition: 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      }
+
+      .icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(180deg, #0f172a, #111827);
-        color: #f8f8f2;
-        font-family: "Courier New", monospace;
+        font-size: 2rem;
+        margin-bottom: 14px;
+        background: #e9f7ee;
       }
 
-      .arcade {
-        width: min(90vw, 520px);
-        background: rgba(15, 23, 42, 0.8);
-        border: 4px solid #facc15;
-        box-shadow: 0 0 0 6px #1f2937, 0 0 20px rgba(250, 204, 21, 0.25);
-        padding: 26px 20px;
-        text-align: center;
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 1.3rem;
       }
 
-      .screen {
-        background: #1f2937;
-        border: 3px solid #f8f8f2;
-        padding: 18px 16px 10px;
-        margin-bottom: 20px;
-      }
-
-      h1 {
+      .card p {
         margin: 0;
-        font-size: clamp(2rem, 4vw, 3rem);
-        letter-spacing: 4px;
+        color: #4d6767;
+        line-height: 1.5;
+      }
+
+      .badge {
+        display: inline-block;
+        margin-top: 14px;
+        background: #163d3a;
+        color: white;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
         text-transform: uppercase;
-        color: #facc15;
-      }
-
-      .menu {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        margin-top: 12px;
-      }
-
-      .game-link {
-        display: block;
-        padding: 14px 18px;
-        text-decoration: none;
-        color: #f8f8f2;
-        background: #111827;
-        border: 3px solid #f8f8f2;
-        font-weight: bold;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        transition: 0.15s ease;
-      }
-
-      .game-link:hover {
-        background: #facc15;
-        color: #111827;
-        border-color: #facc15;
-        transform: translateY(-2px);
+        padding: 6px 10px;
+        border-radius: 999px;
       }
     </style>
   </head>
   <body>
-    <div class="arcade">
-      <div class="screen">
-        <h1>Game Hub</h1>
-      </div>
+    <header class="topbar">
+      <div class="brand">School Game Hub</div>
+      <nav class="nav">
+        <a href="#">Home</a>
+        <a href="#">Games</a>
+        <a href="#">News</a>
+        <a href="#">Club</a>
+      </nav>
+    </header>
 
-      <div class="menu">
-        <a class="game-link" href="sm64.html">Super Mario 64</a>
-        <a class="game-link" href="snowrider3D.html">Snow Rider 3D</a>
-      </div>
-    </div>
+    <main class="container">
+      <section class="hero">
+        <h1>Welcome to Game Club</h1>
+        <p>Play a few fun games during break time and take a quick mental reset between classes.</p>
+      </section>
+
+      <section class="games">
+        <a class="card" href="sm64.html">
+          <div class="icon">🍄</div>
+          <h3>Super Mario 64</h3>
+          <p>Classic 3D platforming adventure.</p>
+          <span class="badge">Play Now</span>
+        </a>
+
+        <a class="card" href="snowrider3D.html">
+          <div class="icon">🏂</div>
+          <h3>Snow Rider 3D</h3>
+          <p>Fast snow racing action.</p>
+          <span class="badge">Play Now</span>
+        </a>
+
+        <a class="card" href="#">
+          <div class="icon">🎮</div>
+          <h3>More Games</h3>
+          <p>Coming soon to the school arcade.</p>
+          <span class="badge">Soon</span>
+        </a>
+      </section>
+    </main>
   </body>
 </html>
