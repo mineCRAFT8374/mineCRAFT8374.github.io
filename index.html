@@ -1,16 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <title>mineCRAFT8374's games</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Hub</title>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        background-color: rgb(0, 150, 136);
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #009688, #00695c);
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+      }
+
+      .panel {
+        background: rgba(0, 0, 0, 0.25);
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        border-radius: 18px;
+        padding: 40px 30px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        text-align: center;
+        width: min(90vw, 500px);
+      }
+
+      h1 {
+        margin: 0 0 25px;
+        font-size: clamp(2rem, 4vw, 3rem);
+      }
+
+      .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      a.game-link {
+        display: block;
+        padding: 16px 20px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.12);
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: bold;
+        transition: transform 0.15s ease, background 0.15s ease;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      a.game-link:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
       }
     </style>
   </head>
+
   <body>
-    <a href="sm64.html">Super mario 64</a><br>
-    <a href="snowrider3D.html">Snow rider 3D</a>
+    <div class="panel">
+      <h1>Game Hub</h1>
+
+      <div class="menu">
+        <a class="game-link" href="sm64.html">Super Mario 64</a>
+        <a class="game-link" href="snowrider3D.html">Snow Rider 3D</a>
+      </div>
+    </div>
   </body>
 </html>
