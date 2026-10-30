@@ -11,53 +11,73 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(180deg, #0a7d72, #0d5f58);
-        font-family: Arial, sans-serif;
-        color: white;
+        background: linear-gradient(180deg, #0f172a, #111827);
+        color: #f8f8f2;
+        font-family: "Courier New", monospace;
       }
 
-      .panel {
-        background: rgba(0, 0, 0, 0.18);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        border-radius: 18px;
-        padding: 32px 24px;
-        width: min(90vw, 500px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+      .arcade {
+        width: min(90vw, 520px);
+        background: rgba(15, 23, 42, 0.8);
+        border: 4px solid #facc15;
+        box-shadow: 0 0 0 6px #1f2937, 0 0 20px rgba(250, 204, 21, 0.25);
+        padding: 26px 20px;
         text-align: center;
       }
 
+      .screen {
+        background: #1f2937;
+        border: 3px solid #f8f8f2;
+        padding: 18px 16px 10px;
+        margin-bottom: 20px;
+      }
+
       h1 {
-        margin: 0 0 24px;
+        margin: 0;
         font-size: clamp(2rem, 4vw, 3rem);
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #facc15;
+      }
+
+      .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 12px;
       }
 
       .game-link {
         display: block;
-        margin: 12px auto;
-        padding: 16px 20px;
-        max-width: 300px;
+        padding: 14px 18px;
         text-decoration: none;
-        color: white;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 12px;
-        font-size: 1.05rem;
-        transition: 0.2s ease;
+        color: #f8f8f2;
+        background: #111827;
+        border: 3px solid #f8f8f2;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: 0.15s ease;
       }
 
       .game-link:hover {
-        background: rgba(255, 255, 255, 0.14);
-        transform: translateY(-1px);
+        background: #facc15;
+        color: #111827;
+        border-color: #facc15;
+        transform: translateY(-2px);
       }
     </style>
   </head>
-
   <body>
-    <div class="panel">
-      <h1>Game Hub</h1>
+    <div class="arcade">
+      <div class="screen">
+        <h1>Game Hub</h1>
+      </div>
 
-      <a class="game-link" href="sm64.html">Super Mario 64</a>
-      <a class="game-link" href="snowrider3D.html">Snow Rider 3D</a>
+      <div class="menu">
+        <a class="game-link" href="sm64.html">Super Mario 64</a>
+        <a class="game-link" href="snowrider3D.html">Snow Rider 3D</a>
+      </div>
     </div>
   </body>
 </html>
