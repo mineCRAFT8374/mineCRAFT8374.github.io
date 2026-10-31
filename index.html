@@ -3,45 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game Vault</title>
+    <title>Game Vault | Server Status</title>
     <style>
       * { box-sizing: border-box; }
+
+      :root {
+        --bg-1: #0b1020;
+        --bg-2: #131d31;
+        --panel: rgba(18, 26, 42, 0.9);
+        --panel-soft: rgba(14, 21, 35, 0.78);
+        --line: rgba(148, 163, 184, 0.2);
+        --text: #edf6ff;
+        --muted: #a9b8d3;
+        --cyan: #7ee7ff;
+        --purple: #a855f7;
+        --green: #4ade80;
+        --amber: #fbbf24;
+        --red: #f87171;
+      }
 
       body {
         margin: 0;
         min-height: 100vh;
         font-family: Arial, sans-serif;
-        background: linear-gradient(180deg, #0f1021, #1d1b3a);
-        color: #f4f7ff;
+        background: radial-gradient(circle at top, rgba(126, 231, 255, 0.12), transparent 28%), linear-gradient(180deg, var(--bg-1), var(--bg-2));
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
       }
 
       .topbar {
-        background: rgba(14, 17, 31, 0.9);
-        border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+        background: rgba(11, 16, 32, 0.9);
+        border-bottom: 1px solid var(--line);
         padding: 16px 30px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(10px);
       }
 
       .brand {
         font-weight: 900;
         letter-spacing: 2px;
         font-size: 1.2rem;
-        color: #7ee7ff;
+        color: var(--cyan);
         text-transform: uppercase;
       }
 
       .nav {
         display: flex;
         gap: 20px;
-        font-size: 0.82rem;
+        font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 1px;
       }
 
       .nav a {
-        color: #dfe9ff;
+        color: #dbe7ff;
         text-decoration: none;
         opacity: 0.8;
       }
@@ -51,29 +74,37 @@
       }
 
       .container {
-        max-width: 1100px;
+        max-width: 1200px;
         margin: 40px auto;
-        padding: 0 20px 40px;
+        padding: 0 20px 48px;
       }
 
       .hero {
-        background: linear-gradient(135deg, rgba(79, 70, 229, 0.18), rgba(45, 212, 191, 0.15));
-        border: 1px solid rgba(126, 231, 255, 0.3);
-        border-radius: 20px;
-        padding: 32px 26px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+        background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(45, 212, 191, 0.14));
+        border: 1px solid rgba(126, 231, 255, 0.25);
+        border-radius: 24px;
+        padding: 28px 26px;
+        box-shadow: 0 22px 44px rgba(0, 0, 0, 0.22);
       }
 
       .tag {
         display: inline-block;
         background: rgba(126, 231, 255, 0.12);
         border: 1px solid rgba(126, 231, 255, 0.35);
-        color: #7ee7ff;
+        color: var(--cyan);
         text-transform: uppercase;
         letter-spacing: 2px;
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         padding: 8px 12px;
         border-radius: 999px;
+      }
+
+      .hero-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        flex-wrap: wrap;
       }
 
       h1 {
@@ -86,12 +117,73 @@
       .hero p {
         margin: 0;
         font-size: 1.02rem;
-        color: #dbe5ff;
+        color: var(--muted);
         max-width: 700px;
       }
 
-      .schedule {
+      .status-pill {
+        margin-top: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(74, 222, 128, 0.12);
+        border: 1px solid rgba(74, 222, 128, 0.4);
+        color: #9bf7ba;
+        border-radius: 999px;
+        padding: 10px 14px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 12px rgba(74, 222, 128, 0.8);
+      }
+
+      .metrics {
+        margin-top: 26px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 18px;
+      }
+
+      .metric {
+        background: rgba(10, 16, 28, 0.78);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 18px 16px;
+      }
+
+      .metric-label {
+        display: block;
+        color: var(--muted);
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .metric-value {
+        font-size: clamp(1.5rem, 2vw, 2.2rem);
+        font-weight: 800;
+      }
+
+      .metric-sub {
+        margin-top: 6px;
+        color: #bfd0f7;
+        font-size: 0.8rem;
+      }
+
+      .schedule, .games {
         margin-top: 34px;
+      }
+
+      .schedule {
         background: rgba(18, 22, 40, 0.82);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 22px;
@@ -104,7 +196,7 @@
         justify-content: space-between;
         align-items: center;
         gap: 16px;
-        margin-bottom: 22px;
+        margin-bottom: 20px;
         flex-wrap: wrap;
       }
 
@@ -137,7 +229,7 @@
         width: 42px;
         height: 42px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #7ee7ff, #a855f7);
+        background: linear-gradient(135deg, var(--cyan), var(--purple));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -193,7 +285,6 @@
       }
 
       .games {
-        margin-top: 30px;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 22px;
@@ -242,7 +333,7 @@
       .badge {
         display: inline-block;
         margin-top: 16px;
-        background: linear-gradient(135deg, #7ee7ff, #7c3aed);
+        background: linear-gradient(135deg, var(--cyan), var(--purple));
         color: #0a1020;
         font-size: 0.72rem;
         text-transform: uppercase;
@@ -250,6 +341,23 @@
         font-weight: 800;
         padding: 7px 10px;
         border-radius: 999px;
+      }
+
+      @media (max-width: 680px) {
+        .topbar {
+          padding: 14px 18px;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .nav {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .hero {
+          padding: 24px 18px;
+        }
       }
     </style>
   </head>
@@ -260,21 +368,49 @@
         <a href="#">Home</a>
         <a href="#">Arcade</a>
         <a href="#">Favorites</a>
-        <a href="#">Schedule</a>
+        <a href="#">Server</a>
         <a href="#">Leaderboard</a>
       </nav>
     </header>
 
     <main class="container">
       <section class="hero">
-        <span class="tag">Now Playing</span>
-        <h1>Pick your next game and start the run.</h1>
-        <p>Jump into a few quick favorites, chase a high score, or just chill with a classic. The arcade is open.</p>
+        <div class="hero-row">
+          <div>
+            <span class="tag">Live server</span>
+            <h1>Game Vault is online and ready.</h1>
+            <p>Check active players, peak times, and which worlds are open right now. Jump in and start your next run.</p>
+          </div>
+          <div class="status-pill"><span class="dot"></span> Online</div>
+        </div>
+
+        <div class="metrics" aria-label="Server metrics">
+          <div class="metric">
+            <span class="metric-label">Players online</span>
+            <div class="metric-value">12</div>
+            <div class="metric-sub">Across 4 active rooms</div>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Current map</span>
+            <div class="metric-value">Arcade</div>
+            <div class="metric-sub">No lag spikes</div>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Uptime</span>
+            <div class="metric-value">99.9%</div>
+            <div class="metric-sub">Last 30 days</div>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Avg ping</span>
+            <div class="metric-value">24ms</div>
+            <div class="metric-sub">Smooth gameplay</div>
+          </div>
+        </div>
       </section>
 
       <section class="schedule" aria-label="Who is online and when">
         <div class="section-head">
-          <span class="tag">Players online</span>
+          <span class="tag">Player timeline</span>
           <h2>Who’s on and when</h2>
         </div>
         <div id="player-list" class="online-grid"></div>
@@ -324,7 +460,8 @@
         { name: "Ava", game: "Snow Rider 3D", start: 17, end: 20 },
         { name: "Zeke", game: "Sonic", start: 19, end: 22 },
         { name: "Nia", game: "Utopia", start: 16, end: 18 },
-        { name: "Jax", game: "Sonic 2", start: 20, end: 23 }
+        { name: "Jax", game: "Sonic 2", start: 20, end: 23 },
+        { name: "Luna", game: "Arcade Lounge", start: 15, end: 18 }
       ];
 
       const formatHour = (hour) => {
