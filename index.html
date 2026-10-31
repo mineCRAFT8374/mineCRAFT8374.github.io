@@ -53,7 +53,7 @@
       .container {
         max-width: 1100px;
         margin: 40px auto;
-        padding: 0 20px;
+        padding: 0 20px 40px;
       }
 
       .hero {
@@ -88,6 +88,108 @@
         font-size: 1.02rem;
         color: #dbe5ff;
         max-width: 700px;
+      }
+
+      .schedule {
+        margin-top: 34px;
+        background: rgba(18, 22, 40, 0.82);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 22px;
+        padding: 28px 24px;
+        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+        flex-wrap: wrap;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: clamp(1.5rem, 2vw, 2.2rem);
+      }
+
+      .online-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+      }
+
+      .player-card {
+        background: rgba(11, 15, 28, 0.9);
+        border: 1px solid rgba(126, 231, 255, 0.18);
+        border-radius: 18px;
+        padding: 18px 16px;
+      }
+
+      .player-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #7ee7ff, #a855f7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #09131b;
+        font-weight: 900;
+      }
+
+      .player-card h3 {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+
+      .player-card p {
+        margin: 4px 0 0;
+        color: #bfd0f7;
+        font-size: 0.9rem;
+      }
+
+      .time-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 0.8rem;
+      }
+
+      .time-row span:first-child {
+        color: #e5eeff;
+      }
+
+      .status {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 6px 9px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+      }
+
+      .status.live {
+        background: rgba(34, 197, 94, 0.2);
+        color: #8cf5b4;
+        border: 1px solid rgba(34, 197, 94, 0.5);
+      }
+
+      .status.idle {
+        background: rgba(148, 163, 184, 0.14);
+        color: #dfeaf8;
+        border: 1px solid rgba(148, 163, 184, 0.4);
       }
 
       .games {
@@ -158,6 +260,7 @@
         <a href="#">Home</a>
         <a href="#">Arcade</a>
         <a href="#">Favorites</a>
+        <a href="#">Schedule</a>
         <a href="#">Leaderboard</a>
       </nav>
     </header>
@@ -167,6 +270,14 @@
         <span class="tag">Now Playing</span>
         <h1>Pick your next game and start the run.</h1>
         <p>Jump into a few quick favorites, chase a high score, or just chill with a classic. The arcade is open.</p>
+      </section>
+
+      <section class="schedule" aria-label="Who is online and when">
+        <div class="section-head">
+          <span class="tag">Players online</span>
+          <h2>Who’s on and when</h2>
+        </div>
+        <div id="player-list" class="online-grid"></div>
       </section>
 
       <section class="games" aria-label="Game selection">
@@ -206,5 +317,47 @@
         </a>
       </section>
     </main>
+
+    <script>
+      const players = [
+        { name: "Milo", game: "Super Mario 64", start: 18, end: 21 },
+        { name: "Ava", game: "Snow Rider 3D", start: 17, end: 20 },
+        { name: "Zeke", game: "Sonic", start: 19, end: 22 },
+        { name: "Nia", game: "Utopia", start: 16, end: 18 },
+        { name: "Jax", game: "Sonic 2", start: 20, end: 23 }
+      ];
+
+      const formatHour = (hour) => {
+        const suffix = hour >= 12 ? "PM" : "AM";
+        const normalized = hour % 12 === 0 ? 12 : hour % 12;
+        return `${normalized}:00 ${suffix}`;
+      };
+
+      const isOnlineNow = (start, end) => {
+        const currentHour = new Date().getHours();
+        return currentHour >= start && currentHour < end;
+      };
+
+      const container = document.getElementById("player-list");
+
+      container.innerHTML = players.map((player) => {
+        const online = isOnlineNow(player.start, player.end);
+        return `
+          <article class="player-card">
+            <div class="player-top">
+              <div class="avatar">${player.name.charAt(0)}</div>
+              <div>
+                <h3>${player.name}</h3>
+                <p>${player.game}</p>
+              </div>
+            </div>
+            <div class="time-row">
+              <span>${formatHour(player.start)} - ${formatHour(player.end)}</span>
+              <span class="status ${online ? "live" : "idle"}">${online ? "Online now" : "Usually on"}</span>
+            </div>
+          </article>
+        `;
+      }).join("");
+    </script>
   </body>
 </html>
