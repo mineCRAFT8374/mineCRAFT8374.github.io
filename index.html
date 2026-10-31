@@ -179,6 +179,56 @@
         font-size: 0.8rem;
       }
 
+      .signin-panel {
+        margin-top: 26px;
+        background: rgba(10, 16, 28, 0.8);
+        border: 1px solid rgba(126, 231, 255, 0.2);
+        border-radius: 18px;
+        padding: 18px 20px;
+      }
+
+      .signin-panel h3 {
+        margin: 0 0 12px;
+        font-size: 1.2rem;
+      }
+
+      .signin-form {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .signin-form input {
+        flex: 1 1 220px;
+        min-width: 180px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 12px;
+        padding: 12px 14px;
+        color: var(--text);
+        font-size: 1rem;
+      }
+
+      .signin-form button {
+        background: linear-gradient(135deg, var(--cyan), var(--purple));
+        border: none;
+        color: #09131b;
+        font-weight: 800;
+        padding: 12px 18px;
+        border-radius: 12px;
+        cursor: pointer;
+      }
+
+      .signin-form button:hover {
+        filter: brightness(1.05);
+      }
+
+      .signin-note {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+
       .schedule, .games {
         margin-top: 34px;
       }
@@ -387,7 +437,7 @@
         <div class="metrics" aria-label="Server metrics">
           <div class="metric">
             <span class="metric-label">Players online</span>
-            <div class="metric-value">12</div>
+            <div class="metric-value" id="player-count">0</div>
             <div class="metric-sub">Across 4 active rooms</div>
           </div>
           <div class="metric">
@@ -405,6 +455,15 @@
             <div class="metric-value">24ms</div>
             <div class="metric-sub">Smooth gameplay</div>
           </div>
+        </div>
+
+        <div class="signin-panel">
+          <h3>Sign in to the server</h3>
+          <form id="signin-form" class="signin-form">
+            <input id="username" type="text" maxlength="20" placeholder="Enter gamer tag" required />
+            <button type="submit">Join</button>
+          </form>
+          <div id="signed-in-text" class="signin-note">Not signed in yet.</div>
         </div>
       </section>
 
@@ -455,14 +514,26 @@
     </main>
 
     <script>
-      const players = [
-        { name: "Milo", game: "Super Mario 64", start: 18, end: 21 },
-        { name: "Ava", game: "Snow Rider 3D", start: 17, end: 20 },
-        { name: "Zeke", game: "Sonic", start: 19, end: 22 },
-        { name: "Nia", game: "Utopia", start: 16, end: 18 },
-        { name: "Jax", game: "Sonic 2", start: 20, end: 23 },
-        { name: "Luna", game: "Arcade Lounge", start: 15, end: 18 }
+      const STORAGE_KEY = "gamevault_players";
+      const USER_KEY = "gamevault_user";
+
+      const fallbackPlayers = [
+        { name: "Alex", game: "Super Mario 64", start: 18, end: 21 },
+        { name: "Jamie", game: "Snow Rider 3D", start: 17, end: 20 },
+        { name: "Sam", game: "Sonic", start: 19, end: 22 },
+        { name: "Maya", game: "Utopia", start: 16, end: 18 }
       ];
+
+      const readPlayers = () => {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          if (Array.isArray(saved) && saved.length) return saved;
+        } catch (err) {
+          console.warn("Could not read players list.", err);
+        }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(fallbackPlayers));
+        return fallbackPlayers;
+      };
 
       const formatHour = (hour) => {
         const suffix = hour >= 12 ? "PM" : "AM";
@@ -475,26 +546,67 @@
         return currentHour >= start && currentHour < end;
       };
 
-      const container = document.getElementById("player-list");
+      const currentUser = localStorage.getItem(USER_KEY) || "";
+      const input = document.getElementById("username");
+      const signedInText = document.getElementById("signed-in-text");
+      const playerCount = document.getElementById("player-count");
 
-      container.innerHTML = players.map((player) => {
-        const online = isOnlineNow(player.start, player.end);
-        return `
-          <article class="player-card">
-            <div class="player-top">
-              <div class="avatar">${player.name.charAt(0)}</div>
-              <div>
-                <h3>${player.name}</h3>
-                <p>${player.game}</p>
+      if (currentUser) {
+        input.value = currentUser;
+        signedInText.textContent = `Signed in as ${currentUser}.`;
+      }
+
+      const renderPlayers = () => {
+        const players = readPlayers();
+        const container = document.getElementById("player-list");
+
+        container.innerHTML = players.map((player) => {
+          const online = isOnlineNow(player.start, player.end);
+          return `
+            <article class="player-card">
+              <div class="player-top">
+                <div class="avatar">${player.name.charAt(0)}</div>
+                <div>
+                  <h3>${player.name}</h3>
+                  <p>${player.game}</p>
+                </div>
               </div>
-            </div>
-            <div class="time-row">
-              <span>${formatHour(player.start)} - ${formatHour(player.end)}</span>
-              <span class="status ${online ? "live" : "idle"}">${online ? "Online now" : "Usually on"}</span>
-            </div>
-          </article>
-        `;
-      }).join("");
+              <div class="time-row">
+                <span>${formatHour(player.start)} - ${formatHour(player.end)}</span>
+                <span class="status ${online ? "live" : "idle"}">${online ? "Online now" : "Usually on"}</span>
+              </div>
+            </article>
+          `;
+        }).join("");
+
+        playerCount.textContent = String(players.length);
+      };
+
+      document.getElementById("signin-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const typedName = input.value.trim();
+        if (!typedName) return;
+
+        const players = readPlayers();
+        const isDuplicate = players.some((player) => player.name.toLowerCase() === typedName.toLowerCase());
+
+        if (!isDuplicate) {
+          const currentHour = new Date().getHours();
+          players.push({
+            name: typedName,
+            game: "Arcade",
+            start: currentHour,
+            end: currentHour + 2
+          });
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(players));
+        }
+
+        localStorage.setItem(USER_KEY, typedName);
+        signedInText.textContent = `Signed in as ${typedName}.`;
+        renderPlayers();
+      });
+
+      renderPlayers();
     </script>
   </body>
 </html>
