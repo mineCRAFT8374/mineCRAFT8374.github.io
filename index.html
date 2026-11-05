@@ -8,621 +8,152 @@
   <div id="signed-in-text" class="signin-note">Not signed in yet.</div>
 </div>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game Vault | Server Status</title>
-    <style>
-      * { box-sizing: border-box; }
-
-      :root {
-        --bg-1: #0b1020;
-        --bg-2: #131d31;
-        --panel: rgba(18, 26, 42, 0.9);
-        --panel-soft: rgba(14, 21, 35, 0.78);
-        --line: rgba(148, 163, 184, 0.2);
-        --text: #edf6ff;
-        --muted: #a9b8d3;
-        --cyan: #7ee7ff;
-        --purple: #a855f7;
-        --green: #4ade80;
-        --amber: #fbbf24;
-        --red: #f87171;
-      }
-
-      body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: Arial, sans-serif;
-        background: radial-gradient(circle at top, rgba(126, 231, 255, 0.12), transparent 28%), linear-gradient(180deg, var(--bg-1), var(--bg-2));
-        color: var(--text);
-      }
-
-      a {
-        color: inherit;
-      }
-
-      .topbar {
-        background: rgba(11, 16, 32, 0.9);
-        border-bottom: 1px solid var(--line);
-        padding: 16px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        backdrop-filter: blur(10px);
-      }
-
-      .brand {
-        font-weight: 900;
-        letter-spacing: 2px;
-        font-size: 1.2rem;
-        color: var(--cyan);
-        text-transform: uppercase;
-      }
-
-      .nav {
-        display: flex;
-        gap: 20px;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-
-      .nav a {
-        color: #dbe7ff;
-        text-decoration: none;
-        opacity: 0.8;
-      }
-
-      .nav a:hover {
-        opacity: 1;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 40px auto;
-        padding: 0 20px 48px;
-      }
-
-      .hero {
-        <div class="signin-panel">
-  <h3>Sign in to the server</h3>
-  <form id="signin-form" class="signin-form">
-    <input id="username" type="text" maxlength="20" placeholder="Enter gamer tag" required />
-    <button type="submit">Join</button>
-  </form>
-  <div id="signed-in-text" class="signin-note">Not signed in yet.</div>
-</div>
-        background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(45, 212, 191, 0.14));
-        border: 1px solid rgba(126, 231, 255, 0.25);
-        border-radius: 24px;
-        padding: 28px 26px;
-        box-shadow: 0 22px 44px rgba(0, 0, 0, 0.22);
-      }
-
-      .tag {
-        display: inline-block;
-        background: rgba(126, 231, 255, 0.12);
-        border: 1px solid rgba(126, 231, 255, 0.35);
-        color: var(--cyan);
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-size: 0.7rem;
-        padding: 8px 12px;
-        border-radius: 999px;
-      }
-
-      .hero-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 20px;
-        flex-wrap: wrap;
-      }
-
-      h1 {
-        margin: 18px 0 12px;
-        font-size: clamp(2.4rem, 4vw, 4rem);
-        line-height: 1.05;
-        letter-spacing: 1px;
-      }
-
-      .hero p {
-        margin: 0;
-        font-size: 1.02rem;
-        color: var(--muted);
-        max-width: 700px;
-      }
-
-      .status-pill {
-        margin-top: 14px;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        background: rgba(74, 222, 128, 0.12);
-        border: 1px solid rgba(74, 222, 128, 0.4);
-        color: #9bf7ba;
-        border-radius: 999px;
-        padding: 10px 14px;
-        font-weight: 700;
-        letter-spacing: 0.8px;
-        text-transform: uppercase;
-        font-size: 0.72rem;
-      }
-
-      .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var(--green);
-        box-shadow: 0 0 12px rgba(74, 222, 128, 0.8);
-      }
-
-      .metrics {
-        margin-top: 26px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 18px;
-      }
-
-      .metric {
-        background: rgba(10, 16, 28, 0.78);
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 18px 16px;
-      }
-
-      .metric-label {
-        display: block;
-        color: var(--muted);
-        font-size: 0.75rem;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        margin-bottom: 8px;
-      }
-
-      .metric-value {
-        font-size: clamp(1.5rem, 2vw, 2.2rem);
-        font-weight: 800;
-      }
-
-      .metric-sub {
-        margin-top: 6px;
-        color: #bfd0f7;
-        font-size: 0.8rem;
-      }
-
-      .signin-panel {
-        margin-top: 26px;
-        background: rgba(10, 16, 28, 0.8);
-        border: 1px solid rgba(126, 231, 255, 0.2);
-        border-radius: 18px;
-        padding: 18px 20px;
-      }
-
-      .signin-panel h3 {
-        margin: 0 0 12px;
-        font-size: 1.2rem;
-      }
-
-      .signin-form {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-
-      .signin-form input {
-        flex: 1 1 220px;
-        min-width: 180px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 12px;
-        padding: 12px 14px;
-        color: var(--text);
-        font-size: 1rem;
-      }
-
-      .signin-form button {
-        background: linear-gradient(135deg, var(--cyan), var(--purple));
-        border: none;
-        color: #09131b;
-        font-weight: 800;
-        padding: 12px 18px;
-        border-radius: 12px;
-        cursor: pointer;
-      }
-
-      .signin-form button:hover {
-        filter: brightness(1.05);
-      }
-
-      .signin-note {
-        margin-top: 10px;
-        color: var(--muted);
-        font-size: 0.84rem;
-      }
-
-      .schedule, .games {
-        margin-top: 34px;
-      }
-
-      .schedule {
-        background: rgba(18, 22, 40, 0.82);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 22px;
-        padding: 28px 24px;
-        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
-      }
-
-      .section-head {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-      }
-
-      .section-head h2 {
-        margin: 0;
-        font-size: clamp(1.5rem, 2vw, 2.2rem);
-      }
-
-      .online-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 18px;
-      }
-
-      .player-card {
-        background: rgba(11, 15, 28, 0.9);
-        border: 1px solid rgba(126, 231, 255, 0.18);
-        border-radius: 18px;
-        padding: 18px 16px;
-      }
-
-      .player-top {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 14px;
-      }
-
-      .avatar {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--cyan), var(--purple));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #09131b;
-        font-weight: 900;
-      }
-
-      .player-card h3 {
-        margin: 0;
-        font-size: 1.1rem;
-      }
-
-      .player-card p {
-        margin: 4px 0 0;
-        color: #bfd0f7;
-        font-size: 0.9rem;
-      }
-
-      .time-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 8px;
-        padding-top: 10px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        font-size: 0.8rem;
-      }
-
-      .time-row span:first-child {
-        color: #e5eeff;
-      }
-
-      .status {
-        display: inline-block;
-        border-radius: 999px;
-        padding: 6px 9px;
-        font-size: 0.68rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-      }
-
-      .status.live {
-        background: rgba(34, 197, 94, 0.2);
-        color: #8cf5b4;
-        border: 1px solid rgba(34, 197, 94, 0.5);
-      }
-
-      .status.idle {
-        background: rgba(148, 163, 184, 0.14);
-        color: #dfeaf8;
-        border: 1px solid rgba(148, 163, 184, 0.4);
-      }
-
-      .games {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 22px;
-      }
-
-      .card {
-        background: rgba(18, 22, 40, 0.9);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 18px;
-        padding: 20px;
-        text-decoration: none;
-        color: white;
-        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
-        transition: transform 0.18s ease, border-color 0.18s ease;
-      }
-
-      .card:hover {
-        transform: translateY(-4px);
-        border-color: rgba(126, 231, 255, 0.5);
-      }
-
-      .icon {
-        width: 64px;
-        height: 64px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, rgba(126, 231, 255, 0.18), rgba(168, 85, 247, 0.15));
-        border: 1px solid rgba(126, 231, 255, 0.2);
-        border-radius: 16px;
-        font-size: 2rem;
-        margin-bottom: 16px;
-      }
-
-      .card h3 {
-        margin: 0 0 8px;
-        font-size: 1.4rem;
-      }
-
-      .card p {
-        margin: 0;
-        color: #d3dcf8;
-        line-height: 1.5;
-      }
-
-      .badge {
-        display: inline-block;
-        margin-top: 16px;
-        background: linear-gradient(135deg, var(--cyan), var(--purple));
-        color: #0a1020;
-        font-size: 0.72rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 800;
-        padding: 7px 10px;
-        border-radius: 999px;
-      }
-
-      @media (max-width: 680px) {
-        .topbar {
-          padding: 14px 18px;
-          flex-direction: column;
-          gap: 12px;
-        }
-
-        .nav {
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-
-        .hero {
-          padding: 24px 18px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="brand">Game Vault</div>
-      <nav class="nav" aria-label="Main navigation">
-        <a href="#">Home</a>
-        <a href="#">Arcade</a>
-        <a href="#">Favorites</a>
-        <a href="#">Server</a>
-        <a href="#">Leaderboard</a>
-      </nav>
-    </header>
-
-    <main class="container">
-      <section class="hero">
-        <div class="hero-row">
-          <div>
-            <span class="tag">Live server</span>
-            <h1>Game Vault is online and ready.</h1>
-            <p>Check active players, peak times, and which worlds are open right now. Jump in and start your next run.</p>
-          </div>
-          <div class="status-pill"><span class="dot"></span> Online</div>
-        </div>
-
-        <div class="metrics" aria-label="Server metrics">
-          <div class="metric">
-            <span class="metric-label">Players online</span>
-            <div class="metric-value" id="player-count">0</div>
-            <div class="metric-sub">Across 4 active rooms</div>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Current map</span>
-            <div class="metric-value">Mario</div>
-            <div class="metric-sub">No lag spikes</div>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Uptime</span>
-            <div class="metric-value">99.9%</div>
-            <div class="metric-sub">Last 30 days</div>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Avg ping</span>
-            <div class="metric-value">24ms</div>
-            <div class="metric-sub">Smooth gameplay</div>
-          </div>
-        </div>
-
-        <div class="signin-panel">
-          <h3>Sign in to the server</h3>
-          <form id="signin-form" class="signin-form">
-            <input id="username" type="text" maxlength="20" placeholder="Enter gamer tag" required />
-            <button type="submit">Join</button>
-          </form>
-          <div id="signed-in-text" class="signin-note">Not signed in yet.</div>
-        </div>
-      </section>
-
-      <section class="schedule" aria-label="Who is online and when">
-        <div class="section-head">
-          <span class="tag">Player timeline</span>
-          <h2>Who’s on and when</h2>
-        </div>
-        <div id="player-list" class="online-grid"></div>
-      </section>
-
-      <section class="games" aria-label="Game selection">
-        <a class="card" href="sm64.html">
-          <div class="icon">🍄</div>
-          <h3>Super Mario 64</h3>
-          <p>hop, jump, and leap!</p>
-          <span class="badge">Play now</span>
-        </a>
-
-        <a class="card" href="snowrider3D.html">
-          <div class="icon">🏂</div>
-          <h3>Snow Rider 3D</h3>
-          <p>speed doun a endless hill for santa!</p>
-          <span class="badge">Play now</span>
-        </a>
-
-        <a class="card" href="sonic.html">
-          <div class="icon">💨</div>
-          <h3>Sonic</h3>
-          <p>lets get eggman!</p>
-          <span class="badge">Play now</span>
-        </a>
-
-        <a class="card" href="sonic2.html">
-          <div class="icon">🏍</div>
-          <h3>Sonic 2</h3>
-          <p>oh please i dont whant MORE eggman</p>
-          <span class="badge">Play now</span>
-        </a>
-
-        <a class="card" href="sans.html">
-          <div class="icon">☠</div>
-          <h3>bad time sim</h3>
-          <p>you are gonna have a BAD TIME.</p>
-          <span class="badge">Play now</span>
-        </a>
-      </section>
-    </main>
-
-    <script>
-      const STORAGE_KEY = "gamevault_players";
-      const USER_KEY = "gamevault_user";
-
-      const fallbackPlayers = [
-        { name: "mario", game: "Super Mario 64", start: 18, end: 21 },
-        { name: "sans", game: "Snow Rider 3D", start: 17, end: 20 },
-        { name: "ba ba booy", game: "Sonic", start: 19, end: 22 },
-        { name: "AYYOU", game: "sonic 2", start: 16, end: 18 }
-      ];
-
-      const readPlayers = () => {
-        try {
-          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-          if (Array.isArray(saved) && saved.length) return saved;
-        } catch (err) {
-          console.warn("Could not read players list.", err);
-        }
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(fallbackPlayers));
-        return fallbackPlayers;
-      };
-
-      const formatHour = (hour) => {
-        const suffix = hour >= 12 ? "PM" : "AM";
-        const normalized = hour % 12 === 0 ? 12 : hour % 12;
-        return `${normalized}:00 ${suffix}`;
-      };
-
-      const isOnlineNow = (start, end) => {
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%AE%3C/text%3E%3C/svg%3E" />
+  <title>Game Vault | Server Status</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root { --bg-1:#0b1020; --bg-2:#131d31; --panel:rgba(18,26,42,.9); --panel-soft:rgba(14,21,35,.78); --line:rgba(148,163,184,.2); --text:#edf6ff; --muted:#a9b8d3; --cyan:#7ee7ff; --purple:#a855f7; --green:#4ade80; --amber:#fbbf24; --red:#f87171; }
+    body { margin:0; min-height:100vh; font-family:Arial,sans-serif; background:radial-gradient(circle at top,rgba(126,231,255,.12),transparent 28%),linear-gradient(180deg,var(--bg-1),var(--bg-2)); color:var(--text); }
+    a { color:inherit; }
+    .topbar { background:rgba(11,16,32,.9); border-bottom:1px solid var(--line); padding:16px 30px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:10; backdrop-filter:blur(10px); }
+    .brand { font-weight:900; letter-spacing:2px; font-size:1.2rem; color:var(--cyan); text-transform:uppercase; }
+    .nav { display:flex; gap:20px; font-size:.8rem; text-transform:uppercase; letter-spacing:1px; }
+    .nav a { color:#dbe7ff; text-decoration:none; opacity:.8; }
+    .nav a:hover { opacity:1; }
+    .container { max-width:1200px; margin:40px auto; padding:0 20px 48px; }
+    .hero { background:linear-gradient(135deg,rgba(79,70,229,.2),rgba(45,212,191,.14)); border:1px solid rgba(126,231,255,.25); border-radius:24px; padding:28px 26px; box-shadow:0 22px 44px rgba(0,0,0,.22); }
+    .tag { display:inline-block; background:rgba(126,231,255,.12); border:1px solid rgba(126,231,255,.35); color:var(--cyan); text-transform:uppercase; letter-spacing:2px; font-size:.7rem; padding:8px 12px; border-radius:999px; }
+    .hero-row { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; }
+    h1 { margin:18px 0 12px; font-size:clamp(2.4rem,4vw,4rem); line-height:1.05; letter-spacing:1px; }
+    .hero p { margin:0; font-size:1.02rem; color:var(--muted); max-width:700px; }
+    .status-pill { margin-top:14px; display:inline-flex; align-items:center; gap:10px; background:rgba(74,222,128,.12); border:1px solid rgba(74,222,128,.4); color:#9bf7ba; border-radius:999px; padding:10px 14px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; font-size:.72rem; }
+    .dot { width:10px; height:10px; border-radius:50%; background:var(--green); box-shadow:0 0 12px rgba(74,222,128,.8); }
+    .metrics { margin-top:26px; display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:18px; }
+    .metric { background:rgba(10,16,28,.78); border:1px solid var(--line); border-radius:18px; padding:18px 16px; }
+    .metric-label { display:block; color:var(--muted); font-size:.75rem; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; }
+    .metric-value { font-size:clamp(1.5rem,2vw,2.2rem); font-weight:800; }
+    .metric-sub { margin-top:6px; color:#bfd0f7; font-size:.8rem; }
+    .signin-panel { margin-top:26px; background:rgba(10,16,28,.8); border:1px solid rgba(126,231,255,.2); border-radius:18px; padding:18px 20px; }
+    .signin-panel h3 { margin:0 0 12px; font-size:1.2rem; }
+    .signin-form { display:flex; gap:12px; flex-wrap:wrap; }
+    .signin-form input { flex:1 1 220px; min-width:180px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:12px 14px; color:var(--text); font-size:1rem; }
+    .signin-form button { background:linear-gradient(135deg,var(--cyan),var(--purple)); border:0; color:#09131b; font-weight:800; padding:12px 18px; border-radius:12px; cursor:pointer; }
+    .signin-form button:hover { filter:brightness(1.05); }
+    .signin-note { margin-top:10px; color:var(--muted); font-size:.84rem; }
+    .schedule,.games { margin-top:34px; }
+    .schedule { background:rgba(18,22,40,.82); border:1px solid rgba(255,255,255,.08); border-radius:22px; padding:28px 24px; box-shadow:0 16px 30px rgba(0,0,0,.18); }
+    .section-head { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
+    .section-head h2 { margin:0; font-size:clamp(1.5rem,2vw,2.2rem); }
+    .online-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
+    .player-card { background:rgba(11,15,28,.9); border:1px solid rgba(126,231,255,.18); border-radius:18px; padding:18px 16px; }
+    .player-top { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+    .avatar { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--cyan),var(--purple)); display:flex; align-items:center; justify-content:center; color:#09131b; font-weight:900; }
+    .player-card h3 { margin:0; font-size:1.1rem; }
+    .player-card p { margin:4px 0 0; color:#bfd0f7; font-size:.9rem; }
+    .time-row { display:flex; justify-content:space-between; align-items:center; gap:8px; padding-top:10px; border-top:1px solid rgba(255,255,255,.08); font-size:.8rem; }
+    .time-row span:first-child { color:#e5eeff; }
+    .status { display:inline-block; border-radius:999px; padding:6px 9px; font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.8px; }
+    .status.live { background:rgba(34,197,94,.2); color:#8cf5b4; border:1px solid rgba(34,197,94,.5); }
+    .status.idle { background:rgba(148,163,184,.14); color:#dfeaf8; border:1px solid rgba(148,163,184,.4); }
+    .games { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:22px; }
+    .card { background:rgba(18,22,40,.9); border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:20px; text-decoration:none; color:white; box-shadow:0 16px 30px rgba(0,0,0,.18); transition:transform .18s ease,border-color .18s ease; }
+    .card:hover { transform:translateY(-4px); border-color:rgba(126,231,255,.5); }
+    .icon { width:64px; height:64px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,rgba(126,231,255,.18),rgba(168,85,247,.15)); border:1px solid rgba(126,231,255,.2); border-radius:16px; font-size:2rem; margin-bottom:16px; }
+    .card h3 { margin:0 0 8px; font-size:1.4rem; }
+    .card p { margin:0; color:#d3dcf8; line-height:1.5; }
+    .badge { display:inline-block; margin-top:16px; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#0a1020; font-size:.72rem; text-transform:uppercase; letter-spacing:1px; font-weight:800; padding:7px 10px; border-radius:999px; }
+    @media(max-width:680px) { .topbar { padding:14px 18px; flex-direction:column; gap:12px; } .nav { flex-wrap:wrap; justify-content:center; } .hero { padding:24px 18px; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Game Vault</div>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#">Home</a><a href="#">Arcade</a><a href="#">Favorites</a><a href="#">Server</a><a href="#">Leaderboard</a>
+    </nav>
+  </header>
+  <main class="container">
+    <section class="hero">
+      <div class="hero-row"><div><span class="tag">Live server</span><h1>Game Vault is online and ready.</h1><p>Check active players, peak times, and which worlds are open right now. Jump in and start your next run.</p></div><div class="status-pill"><span class="dot"></span> Online</div></div>
+      <div class="metrics" aria-label="Server metrics">
+        <div class="metric"><span class="metric-label">Players online</span><div class="metric-value" id="player-count">0</div><div class="metric-sub">Across 4 active rooms</div></div>
+        <div class="metric"><span class="metric-label">Current map</span><div class="metric-value">Arcade</div><div class="metric-sub">No lag spikes</div></div>
+        <div class="metric"><span class="metric-label">Uptime</span><div class="metric-value">99.9%</div><div class="metric-sub">Last 30 days</div></div>
+        <div class="metric"><span class="metric-label">Avg ping</span><div class="metric-value">24ms</div><div class="metric-sub">Smooth gameplay</div></div>
+      </div>
+      <div class="signin-panel"><h3>Sign in to the server</h3><form id="signin-form" class="signin-form"><input id="username" type="text" maxlength="20" placeholder="Enter gamer tag" required /><button type="submit">Join</button></form><div id="signed-in-text" class="signin-note">Not signed in yet.</div></div>
+    </section>
+    <section class="schedule" aria-label="Who is online and when"><div class="section-head"><span class="tag">Player timeline</span><h2>Who’s on and when</h2></div><div id="player-list" class="online-grid"></div></section>
+    <section class="games" aria-label="Game selection">
+      <a class="card" href="sm64.html"><div class="icon">🍄</div><h3>Super Mario 64</h3><p>hop, jump, and leap!</p><span class="badge">Play now</span></a>
+      <a class="card" href="snowrider3D.html"><div class="icon">🏂</div><h3>Snow Rider 3D</h3><p>speed doun a endless hill for santa!</p><span class="badge">Play now</span></a>
+      <a class="card" href="sonic.html"><div class="icon">💨</div><h3>Sonic</h3><p>lets get eggman!</p><span class="badge">Play now</span></a>
+      <a class="card" href="sonic2.html"><div class="icon">🏍</div><h3>Sonic 2</h3><p>oh please i dont whant MORE eggman</p><span class="badge">Play now</span></a>
+      <a class="card" href="sans.html"><div class="icon">☠</div><h3>bad time sim</h3><p>you are gonna have a BAD TIME.</p><span class="badge">Play now</span></a>
+    </section>
+  </main>
+  <script>
+    const STORAGE_KEY = "gamevault_players";
+    const USER_KEY = "gamevault_user";
+    const fallbackPlayers = [
+      { name: "mario", game: "Super Mario 64", start: 18, end: 21 },
+      { name: "sans", game: "Snow Rider 3D", start: 17, end: 20 },
+      { name: "ba ba booy", game: "Sonic", start: 19, end: 22 },
+      { name: "AYYOU", game: "sonic 2", start: 16, end: 18 }
+    ];
+    const readPlayers = () => {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (Array.isArray(saved) && saved.length) return saved;
+      } catch (err) { console.warn("Could not read players list.", err); }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(fallbackPlayers));
+      return fallbackPlayers;
+    };
+    const formatHour = (hour) => {
+      const suffix = hour >= 12 ? "PM" : "AM";
+      const normalized = hour % 12 === 0 ? 12 : hour % 12;
+      return `${normalized}:00 ${suffix}`;
+    };
+    const isOnlineNow = (start, end) => {
+      const currentHour = new Date().getHours();
+      return currentHour >= start && currentHour < end;
+    };
+    const currentUser = localStorage.getItem(USER_KEY) || "";
+    const input = document.getElementById("username");
+    const signedInText = document.getElementById("signed-in-text");
+    const playerCount = document.getElementById("player-count");
+    if (currentUser) { input.value = currentUser; signedInText.textContent = `Signed in as ${currentUser}.`; }
+    const renderPlayers = () => {
+      const players = readPlayers();
+      const container = document.getElementById("player-list");
+      container.innerHTML = players.map((player) => {
+        const online = isOnlineNow(player.start, player.end);
+        return `
+          <article class="player-card"><div class="player-top"><div class="avatar">${player.name.charAt(0)}</div><div><h3>${player.name}</h3><p>${player.game}</p></div></div>
+          <div class="time-row"><span>${formatHour(player.start)} - ${formatHour(player.end)}</span><span class="status ${online ? "live" : "idle"}">${online ? "Online now" : "offline"}</span></div></article>
+        `;
+      }).join("");
+      playerCount.textContent = String(players.length);
+    };
+    document.getElementById("signin-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const typedName = input.value.trim();
+      if (!typedName) return;
+      const players = readPlayers();
+      const isDuplicate = players.some((player) => player.name.toLowerCase() === typedName.toLowerCase());
+      if (!isDuplicate) {
         const currentHour = new Date().getHours();
-        return currentHour >= start && currentHour < end;
-      };
-
-      const currentUser = localStorage.getItem(USER_KEY) || "";
-      const input = document.getElementById("username");
-      const signedInText = document.getElementById("signed-in-text");
-      const playerCount = document.getElementById("player-count");
-
-      if (currentUser) {
-        input.value = currentUser;
-        signedInText.textContent = `Signed in as ${currentUser}.`;
+        players.push({ name: typedName, game: "Arcade", start: currentHour, end: currentHour + 2 });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(players));
       }
-
-      const renderPlayers = () => {
-        const players = readPlayers();
-        const container = document.getElementById("player-list");
-
-        container.innerHTML = players.map((player) => {
-          const online = isOnlineNow(player.start, player.end);
-          return `
-            <article class="player-card">
-              <div class="player-top">
-                <div class="avatar">${player.name.charAt(0)}</div>
-                <div>
-                  <h3>${player.name}</h3>
-                  <p>${player.game}</p>
-                </div>
-              </div>
-              <div class="time-row">
-                <span>${formatHour(player.start)} - ${formatHour(player.end)}</span>
-                <span class="status ${online ? "live" : "idle"}">${online ? "Online now" : "offline"}</span>
-              </div>
-            </article>
-          `;
-        }).join("");
-
-        playerCount.textContent = String(players.length);
-      };
-
-      document.getElementById("signin-form").addEventListener("submit", (event) => {
-        event.preventDefault();
-        const typedName = input.value.trim();
-        if (!typedName) return;
-
-        const players = readPlayers();
-        const isDuplicate = players.some((player) => player.name.toLowerCase() === typedName.toLowerCase());
-
-        if (!isDuplicate) {
-          const currentHour = new Date().getHours();
-          players.push({
-            name: typedName,
-            game: "Arcade",
-            start: currentHour,
-            end: currentHour + 2
-          });
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(players));
-        }
-
-        localStorage.setItem(USER_KEY, typedName);
-        signedInText.textContent = `Signed in as ${typedName}.`;
-        renderPlayers();
-      });
-
+      localStorage.setItem(USER_KEY, typedName);
+      signedInText.textContent = `Signed in as ${typedName}.`;
       renderPlayers();
-    </script>
-  </body>
+    });
+    renderPlayers();
+  </script>
+</body>
 </html>
