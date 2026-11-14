@@ -10,93 +10,107 @@
       * { box-sizing: border-box; }
 
       :root {
-        --bg-1: #0b1020;
-        --bg-2: #131d31;
-        --panel: rgba(18, 26, 42, 0.9);
-        --panel-soft: rgba(14, 21, 35, 0.78);
-        --line: rgba(148, 163, 184, 0.2);
-        --text: #edf6ff;
-        --muted: #a9b8d3;
-        --cyan: #7ee7ff;
-        --purple: #a855f7;
-        --green: #4ade80;
-        --amber: #fbbf24;
-        --red: #f87171;
+        --bg-1: #f5f8ff;
+        --bg-2: #edf3ff;
+        --panel: rgba(255, 255, 255, 0.9);
+        --panel-soft: rgba(246, 249, 255, 0.96);
+        --line: rgba(103, 127, 170, 0.18);
+        --text: #1e2a3a;
+        --muted: #586d8c;
+        --cyan: #4d97ff;
+        --blue: #5b9dff;
+        --purple: #b351ff;
+        --green: #4adf73;
+        --amber: #ffab19;
+        --orange: #ff8c1a;
+        --red: #ff6f6f;
+        --scratch-yellow: #ffab19;
+        --scratch-orange: #ff8c1a;
+        --scratch-blue: #4d97ff;
+        --scratch-light-blue: #dbeeff;
+        --shadow: rgba(18, 38, 72, 0.1);
       }
 
       body {
         margin: 0;
         min-height: 100vh;
         font-family: Arial, sans-serif;
-        background: radial-gradient(circle at top, rgba(126, 231, 255, 0.12), transparent 28%), linear-gradient(180deg, var(--bg-1), var(--bg-2));
+        background: radial-gradient(circle at top, rgba(77, 151, 255, 0.08), transparent 22%), linear-gradient(180deg, var(--bg-1), var(--bg-2));
         color: var(--text);
       }
 
       a { color: inherit; }
 
       .topbar {
-        background: rgba(11, 16, 32, 0.9);
-        border-bottom: 1px solid var(--line);
-        padding: 16px 30px;
+        background: linear-gradient(180deg, #ffad1f 0%, #ff9f1a 100%);
+        border-bottom: 3px solid rgba(123, 78, 7, 0.18);
+        padding: 14px 28px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         position: sticky;
         top: 0;
         z-index: 10;
-        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.04);
       }
 
       .brand {
         font-weight: 900;
-        letter-spacing: 2px;
-        font-size: 1.2rem;
-        color: var(--cyan);
+        letter-spacing: 1.5px;
+        font-size: 1.15rem;
+        color: #ffffff;
         text-transform: uppercase;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.14);
       }
 
       .nav {
         display: flex;
-        gap: 20px;
-        font-size: 0.8rem;
+        gap: 18px;
+        font-size: 0.76rem;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 1.2px;
+        font-weight: 700;
       }
 
       .nav a {
-        color: #dbe7ff;
+        color: rgba(30, 35, 45, 0.9);
         text-decoration: none;
-        opacity: 0.8;
+        opacity: 0.9;
+        padding: 6px 8px;
+        border-radius: 8px;
+        transition: background 0.2s ease, opacity 0.2s ease;
       }
 
       .nav a:hover {
         opacity: 1;
+        background: rgba(255,255,255,0.12);
       }
 
       .container {
         max-width: 1200px;
-        margin: 40px auto;
+        margin: 32px auto;
         padding: 0 20px 48px;
       }
 
       .hero {
-        background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(45, 212, 191, 0.14));
-        border: 1px solid rgba(126, 231, 255, 0.25);
-        border-radius: 24px;
-        padding: 28px 26px;
-        box-shadow: 0 22px 44px rgba(0, 0, 0, 0.22);
+        background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+        border: 1px solid rgba(77, 151, 255, 0.24);
+        border-radius: 26px;
+        padding: 28px 26px 24px;
+        box-shadow: 0 18px 34px rgba(28, 54, 88, 0.08);
       }
 
       .tag {
         display: inline-block;
-        background: rgba(126, 231, 255, 0.12);
-        border: 1px solid rgba(126, 231, 255, 0.35);
-        color: var(--cyan);
+        background: var(--scratch-light-blue);
+        border: 1px solid rgba(77, 151, 255, 0.32);
+        color: var(--scratch-blue);
         text-transform: uppercase;
-        letter-spacing: 2px;
+        letter-spacing: 1.8px;
         font-size: 0.7rem;
-        padding: 8px 12px;
+        padding: 7px 12px;
         border-radius: 999px;
+        font-weight: 800;
       }
 
       .hero-row {
@@ -111,7 +125,8 @@
         margin: 18px 0 12px;
         font-size: clamp(2.4rem, 4vw, 4rem);
         line-height: 1.05;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
+        color: #202a36;
       }
 
       .hero p {
@@ -126,12 +141,12 @@
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        background: rgba(74, 222, 128, 0.12);
-        border: 1px solid rgba(74, 222, 128, 0.4);
-        color: #9bf7ba;
+        background: rgba(74, 223, 115, 0.12);
+        border: 1px solid rgba(74, 223, 115, 0.5);
+        color: #1a8e45;
         border-radius: 999px;
         padding: 10px 14px;
-        font-weight: 700;
+        font-weight: 800;
         letter-spacing: 0.8px;
         text-transform: uppercase;
         font-size: 0.72rem;
@@ -142,7 +157,7 @@
         height: 10px;
         border-radius: 50%;
         background: var(--green);
-        box-shadow: 0 0 12px rgba(74, 222, 128, 0.8);
+        box-shadow: 0 0 0 4px rgba(74, 223, 115, 0.15), 0 0 12px rgba(74, 223, 115, 0.9);
       }
 
       .metrics {
@@ -153,36 +168,39 @@
       }
 
       .metric {
-        background: rgba(10, 16, 28, 0.78);
+        background: rgba(255, 255, 255, 0.8);
         border: 1px solid var(--line);
         border-radius: 18px;
         padding: 18px 16px;
+        box-shadow: 0 10px 24px rgba(38, 57, 95, 0.05);
       }
 
       .metric-label {
         display: block;
         color: var(--muted);
-        font-size: 0.75rem;
-        letter-spacing: 1px;
+        font-size: 0.72rem;
+        letter-spacing: 1.2px;
         text-transform: uppercase;
         margin-bottom: 8px;
+        font-weight: 700;
       }
 
       .metric-value {
         font-size: clamp(1.5rem, 2vw, 2.2rem);
-        font-weight: 800;
+        font-weight: 900;
+        color: #1a2531;
       }
 
       .metric-sub {
         margin-top: 6px;
-        color: #bfd0f7;
+        color: #61789d;
         font-size: 0.8rem;
       }
 
       .signin-panel {
         margin-top: 26px;
-        background: rgba(10, 16, 28, 0.8);
-        border: 1px solid rgba(126, 231, 255, 0.2);
+        background: linear-gradient(180deg, #f8fbff 0%, #eef6ff 100%);
+        border: 1px solid rgba(77, 151, 255, 0.2);
         border-radius: 18px;
         padding: 18px 20px;
       }
@@ -190,6 +208,7 @@
       .signin-panel h3 {
         margin: 0 0 12px;
         font-size: 1.2rem;
+        color: #1e2a3a;
       }
 
       .signin-form {
@@ -201,26 +220,29 @@
       .signin-form input {
         flex: 1 1 220px;
         min-width: 180px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.12);
+        background: #ffffff;
+        border: 1px solid rgba(41, 62, 94, 0.16);
         border-radius: 12px;
         padding: 12px 14px;
         color: var(--text);
         font-size: 1rem;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.02);
       }
 
       .signin-form button {
-        background: linear-gradient(135deg, var(--cyan), var(--purple));
-        border: none;
-        color: #09131b;
-        font-weight: 800;
+        background: linear-gradient(180deg, var(--scratch-yellow), var(--scratch-orange));
+        border: 1px solid rgba(160, 82, 0, 0.2);
+        color: #1d1d1d;
+        font-weight: 900;
         padding: 12px 18px;
         border-radius: 12px;
         cursor: pointer;
+        box-shadow: 0 4px 0 rgba(159, 82, 0, 0.18);
+        transition: transform 0.15s ease;
       }
 
       .signin-form button:hover {
-        filter: brightness(1.05);
+        transform: translateY(-1px);
       }
 
       .signin-note {
@@ -234,11 +256,11 @@
       }
 
       .schedule {
-        background: rgba(18, 22, 40, 0.82);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid rgba(103, 127, 170, 0.15);
         border-radius: 22px;
         padding: 28px 24px;
-        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+        box-shadow: 0 16px 30px rgba(20, 36, 58, 0.06);
       }
 
       .section-head {
@@ -253,6 +275,7 @@
       .section-head h2 {
         margin: 0;
         font-size: clamp(1.5rem, 2vw, 2.2rem);
+        color: #1b2433;
       }
 
       .online-grid {
@@ -262,10 +285,11 @@
       }
 
       .player-card {
-        background: rgba(11, 15, 28, 0.9);
-        border: 1px solid rgba(126, 231, 255, 0.18);
+        background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+        border: 1px solid rgba(77, 151, 255, 0.16);
         border-radius: 18px;
         padding: 18px 16px;
+        box-shadow: 0 10px 18px rgba(17, 30, 51, 0.04);
       }
 
       .player-top {
@@ -279,22 +303,24 @@
         width: 42px;
         height: 42px;
         border-radius: 50%;
-        background: linear-gradient(135deg, var(--cyan), var(--purple));
+        background: linear-gradient(135deg, var(--scratch-blue), var(--purple));
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #09131b;
+        color: #ffffff;
         font-weight: 900;
+        box-shadow: inset 0 -2px 0 rgba(0,0,0,0.12);
       }
 
       .player-card h3 {
         margin: 0;
-        font-size: 1.1rem;
+        font-size: 1.08rem;
+        color: #1d2938;
       }
 
       .player-card p {
         margin: 4px 0 0;
-        color: #bfd0f7;
+        color: #61789d;
         font-size: 0.9rem;
       }
 
@@ -304,12 +330,13 @@
         align-items: center;
         gap: 8px;
         padding-top: 10px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-top: 1px solid rgba(40, 59, 84, 0.08);
         font-size: 0.8rem;
       }
 
       .time-row span:first-child {
-        color: #e5eeff;
+        color: #273548;
+        font-weight: 700;
       }
 
       .status {
@@ -317,20 +344,20 @@
         border-radius: 999px;
         padding: 6px 9px;
         font-size: 0.68rem;
-        font-weight: 700;
+        font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.8px;
       }
 
       .status.live {
-        background: rgba(34, 197, 94, 0.2);
-        color: #8cf5b4;
-        border: 1px solid rgba(34, 197, 94, 0.5);
+        background: rgba(74, 223, 115, 0.14);
+        color: #19773a;
+        border: 1px solid rgba(74, 223, 115, 0.5);
       }
 
       .status.idle {
-        background: rgba(148, 163, 184, 0.14);
-        color: #dfeaf8;
+        background: rgba(148, 163, 184, 0.12);
+        color: #55657f;
         border: 1px solid rgba(148, 163, 184, 0.4);
       }
 
@@ -341,19 +368,20 @@
       }
 
       .card {
-        background: rgba(18, 22, 40, 0.9);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(180deg, #ffffff 0%, #f6faff 100%);
+        border: 1px solid rgba(77, 151, 255, 0.18);
         border-radius: 18px;
         padding: 20px;
         text-decoration: none;
-        color: white;
-        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
-        transition: transform 0.18s ease, border-color 0.18s ease;
+        color: #1d2b3a;
+        box-shadow: 0 12px 22px rgba(28, 53, 82, 0.06);
+        transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
       }
 
       .card:hover {
         transform: translateY(-4px);
-        border-color: rgba(126, 231, 255, 0.5);
+        border-color: rgba(77, 151, 255, 0.4);
+        box-shadow: 0 18px 28px rgba(28, 53, 82, 0.09);
       }
 
       .icon {
@@ -362,8 +390,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, rgba(126, 231, 255, 0.18), rgba(168, 85, 247, 0.15));
-        border: 1px solid rgba(126, 231, 255, 0.2);
+        background: linear-gradient(135deg, rgba(77, 151, 255, 0.14), rgba(179, 81, 255, 0.12));
+        border: 1px solid rgba(77, 151, 255, 0.14);
         border-radius: 16px;
         font-size: 2rem;
         margin-bottom: 16px;
@@ -376,21 +404,22 @@
 
       .card p {
         margin: 0;
-        color: #d3dcf8;
+        color: #596f92;
         line-height: 1.5;
       }
 
       .badge {
         display: inline-block;
         margin-top: 16px;
-        background: linear-gradient(135deg, var(--cyan), var(--purple));
-        color: #0a1020;
+        background: linear-gradient(180deg, var(--scratch-yellow), var(--scratch-orange));
+        color: #1d1d1d;
         font-size: 0.72rem;
         text-transform: uppercase;
         letter-spacing: 1px;
-        font-weight: 800;
+        font-weight: 900;
         padding: 7px 10px;
         border-radius: 999px;
+        box-shadow: 0 3px 0 rgba(160, 82, 0, 0.18);
       }
 
       @media (max-width: 680px) {
@@ -515,7 +544,6 @@
           <p>ooh medal</p>
           <span class="badge">Play now</span>
         </a>
-
 
         <a class="card" href="sans.html">
           <div class="icon">☠</div>
