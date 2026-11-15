@@ -8,7 +8,7 @@
     <title>🎮 Game Vault | Server Status</title>
     <style>
       * { box-sizing: border-box; }
-      :root { --bg:#f1f6ff; --text:#1e2a3a; --muted:#586d8c; --blue:#4d97ff; --purple:#a545ed; --green:#168744; --line:rgba(103,127,170,.2); }
+      :root { --bg:#f1f6ff; --text:#1e2a3a; --muted:#586d8c; --blue:#4d97ff; --line:rgba(103,127,170,.2); }
       body { margin:0; min-height:100vh; font-family:Arial,sans-serif; color:var(--text); background:linear-gradient(180deg,#f8faff,var(--bg)); }
       a { color:inherit; }
       .topbar { background:linear-gradient(180deg,#b351ff,#842bd1); border-bottom:3px solid rgba(67,25,105,.3); padding:14px 28px; display:flex; justify-content:space-between; align-items:center; gap:16px; }
@@ -31,8 +31,9 @@
       .signin-panel h2 { margin:0 0 12px; font-size:1.15rem; }
       .signin-form { display:flex; gap:10px; flex-wrap:wrap; }
       .signin-form input { flex:1 1 220px; min-width:180px; padding:12px 14px; border:1px solid #bdcbe0; border-radius:10px; font:inherit; }
-      button { padding:12px 17px; border:0; border-radius:10px; background:#ffab19; color:#1d1d1d; font-weight:800; cursor:pointer; }
+      button { padding:12px 17px; border:0; border-radius:10px; background:#ffab19; color:#1d1d1d; font:inherit; font-weight:800; cursor:pointer; }
       button:hover { filter:brightness(.96); }
+      button:disabled { cursor:wait; opacity:.65; }
       .signin-note { min-height:1.2em; margin:9px 0 0; color:var(--muted); font-size:.84rem; }
       .schedule,.gemini-section { margin-top:28px; }
       .schedule h2,.game-tools h2,.gemini-section h2 { margin:0; font-size:clamp(1.4rem,2vw,2rem); }
@@ -41,57 +42,39 @@
       .player-card strong { display:block; overflow-wrap:anywhere; }
       .player-card span { display:block; margin-top:5px; color:var(--muted); font-size:.84rem; }
       .empty-state { color:var(--muted); }
-      
-      /* Gemini Widget Styles */
-      .gemini-box { margin-top:16px; display:flex; flex-direction:column; gap:12px; }
-      .gemini-key-wrap input { width:100%; padding:12px 14px; border:1px solid #bdcbe0; border-radius:10px; font:inherit; background:#fbfdff; }
-      .gemini-key-wrap small { display:block; margin-top:6px; color:var(--muted); font-size:.8rem; }
-      .gemini-output { height:180px; overflow-y:auto; border:1px solid var(--line); padding:14px; border-radius:14px; background:#fbfdff; white-space:pre-wrap; font-size:.92rem; line-height:1.5; color:var(--text); }
-      .gemini-prompt-row { display:flex; gap:10px; flex-wrap:wrap; }
-      .gemini-prompt-row input { flex:1 1 220px; padding:12px 14px; border:1px solid #bdcbe0; border-radius:10px; font:inherit; }
-
       .games { margin-top:30px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
       .game-tools { grid-column:1/-1; display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; }
       .game-search { flex:1 1 260px; max-width:420px; width:100%; padding:12px 14px; border:1px solid rgba(77,151,255,.4); border-radius:10px; font:inherit; }
       .search-status { grid-column:1/-1; margin:0; color:var(--muted); font-size:.9rem; }
-      .card { display:block; padding:19px; border:1px solid rgba(77,151,255,.2); border-radius:17px; background:#fff; text-decoration:none; box-shadow:0 9px 22px rgba(28,53,82,.05); transition:transform .18s ease, box-shadow .18s ease; }
+      .card { display:block; padding:19px; border:1px solid rgba(77,151,255,.2); border-radius:17px; background:#fff; text-decoration:none; box-shadow:0 9px 22px rgba(28,53,82,.05); transition:transform .18s ease,box-shadow .18s ease; }
       .card:hover,.card:focus-visible { transform:translateY(-3px); box-shadow:0 14px 26px rgba(28,53,82,.1); }
       .card[hidden] { display:none; }
       .icon { font-size:2.2rem; margin-bottom:10px; }
       .card h3 { margin:0 0 7px; font-size:1.25rem; }
       .card p { margin:0; color:var(--muted); line-height:1.45; }
       .badge { display:inline-block; margin-top:14px; padding:7px 10px; border-radius:999px; background:#ffab19; color:#1d1d1d; font-size:.72rem; font-weight:800; text-transform:uppercase; }
-      .riddle-dialog {
-        width:min(560px, calc(100% - 24px));
-        padding:24px;
-        border:0;
-        border-radius:22px;
-        box-shadow:0 18px 60px rgba(10,22,42,.35);
-      }
+      .gemini-box { margin-top:16px; display:flex; flex-direction:column; gap:12px; }
+      .gemini-key-wrap input,.gemini-prompt-row input { width:100%; padding:12px 14px; border:1px solid #bdcbe0; border-radius:10px; font:inherit; background:#fbfdff; }
+      .gemini-key-wrap small { display:block; margin-top:6px; color:var(--muted); font-size:.8rem; line-height:1.5; }
+      .gemini-output { min-height:120px; max-height:320px; overflow-y:auto; border:1px solid var(--line); padding:14px; border-radius:14px; background:#fbfdff; white-space:pre-wrap; font-size:.92rem; line-height:1.5; }
+      .gemini-prompt-row { display:flex; gap:10px; flex-wrap:wrap; }
+      .gemini-prompt-row input { flex:1 1 220px; width:auto; }
+      .riddle-dialog { width:min(560px,calc(100% - 24px)); padding:24px; border:0; border-radius:22px; box-shadow:0 18px 60px rgba(10,22,42,.35); }
       .riddle-dialog::backdrop { background:rgba(10,20,35,.7); }
       .riddle-dialog h2 { margin:10px 0 12px; font-size:clamp(1.7rem,2vw,2.3rem); }
       .riddle-dialog p { line-height:1.6; }
       .riddle-form { display:flex; flex-direction:column; gap:12px; }
-      .riddle-form input {
-        padding:12px 14px;
-        border:1px solid #cad8ee;
-        border-radius:10px;
-        font:inherit;
-      }
+      .riddle-form input { padding:12px 14px; border:1px solid #cad8ee; border-radius:10px; font:inherit; }
       .riddle-form input:focus { outline:2px solid rgba(77,151,255,.35); outline-offset:2px; }
-      .riddle-status {
-        min-height:1.2em;
-        color:#b92b2b;
-        font-weight:700;
-        font-size:.9rem;
-      }
+      .riddle-status { min-height:1.2em; color:#b92b2b; font-weight:700; font-size:.9rem; }
       .riddle-actions { display:flex; justify-content:flex-end; }
+      .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
       @media (max-width:680px) { .topbar { flex-direction:column; padding:14px 18px; } .hero,.schedule,.gemini-section { padding:20px 17px; } }
     </style>
   </head>
   <body>
     <dialog class="riddle-dialog" id="welcome-riddle" aria-labelledby="riddle-title">
-      <form class="riddle-form" id="riddle-form" method="dialog">
+      <form class="riddle-form" id="riddle-form">
         <span class="tag">Welcome challenge</span>
         <h2 id="riddle-title">Answer to continue</h2>
         <p>“I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I?”</p>
@@ -104,14 +87,8 @@
 
     <header class="topbar">
       <div class="brand">Game Vault</div>
-      <nav class="nav" aria-label="Main navigation">
-        <a href="#home">Home</a>
-        <a href="#games">Arcade</a>
-        <a href="#ai-chat">Ask Gemini</a>
-        <a href="#players">Players</a>
-      </nav>
+      <nav class="nav" aria-label="Main navigation"><a href="#home">Home</a><a href="#games">Arcade</a><a href="#ai-chat">Ask Gemini</a><a href="#players">Players</a></nav>
     </header>
-
     <main class="container" id="home">
       <section class="hero" aria-labelledby="page-title">
         <span class="tag">Live browser status</span>
@@ -135,3 +112,261 @@
       </section>
 
       <section class="schedule" id="players" aria-labelledby="players-title">
+        <span class="tag">Browser presence</span><h2 id="players-title">Players active in this browser</h2>
+        <div id="player-list" class="player-list" aria-live="polite"></div>
+      </section>
+
+      <section class="gemini-section" id="ai-chat" aria-labelledby="gemini-title">
+        <span class="tag">AI assistant</span>
+        <h2 id="gemini-title">Ask Gemini</h2>
+        <p class="intro">Ask a question or get help choosing a game. Add your own Gemini API key; it stays in this tab and is sent directly to Google’s API.</p>
+        <div class="gemini-box">
+          <div class="gemini-key-wrap">
+            <label for="gemini-key">Gemini API key</label>
+            <input id="gemini-key" type="password" autocomplete="off" placeholder="Paste your API key" />
+            <small>Your key is kept in this tab’s session storage. Don’t use a private or shared key on a public computer.</small>
+          </div>
+          <div id="gemini-output" class="gemini-output" role="status" aria-live="polite">Ask Gemini something to get started.</div>
+          <form id="gemini-form" class="gemini-prompt-row">
+            <label for="gemini-prompt" class="visually-hidden">Your question</label>
+            <input id="gemini-prompt" type="text" placeholder="What should I play?" required />
+            <button id="gemini-submit" type="submit">Ask</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="games" id="games" aria-label="Game selection">
+        <div class="game-tools"><h2>Find a game</h2><input id="game-search" class="game-search" type="search" placeholder="Search games..." aria-label="Search games" autocomplete="off" /></div>
+        <p id="search-status" class="search-status" aria-live="polite">Showing all games.</p>
+        <a class="card" href="sm64.html"><div class="icon" aria-hidden="true">🍄</div><h3>Super Mario 64</h3><p>Hop, jump, and leap!</p><span class="badge">Play now</span></a>
+        <a class="card" href="snowrider3D.html"><div class="icon" aria-hidden="true">🏂</div><h3>Snow Rider 3D</h3><p>Speed down an endless hill for Santa!</p><span class="badge">Play now</span></a>
+        <a class="card" href="sonic.html"><div class="icon" aria-hidden="true">💨</div><h3>Sonic</h3><p>Let’s get Eggman!</p><span class="badge">Play now</span></a>
+        <a class="card" href="sonic2.html"><div class="icon" aria-hidden="true">🏍</div><h3>Sonic 2</h3><p>More Eggman trouble.</p><span class="badge">Play now</span></a>
+        <a class="card" href="sonic3.html"><div class="icon" aria-hidden="true">🔵🔴</div><h3>Sonic 3</h3><p>Eggman strikes again.</p><span class="badge">Play now</span></a>
+        <a class="card" href="sonicCD.html"><div class="icon" aria-hidden="true">🔵</div><h3>Sonic CD</h3><p>Collect medals through time.</p><span class="badge">Play now</span></a>
+        <a class="card" href="sans.html"><div class="icon" aria-hidden="true">☠</div><h3>Bad Time Simulator</h3><p>You’re gonna have a bad time.</p><span class="badge">Play now</span></a>
+        <a class="card" href="motox3m.html"><div class="icon" aria-hidden="true">🏍</div><h3>Moto X3M</h3><p>Speed, speed.</p><span class="badge">Play now</span></a>
+        <a class="card" href="https://goosegamez34.github.io/Youcantbehere.github.io"><div class="icon" aria-hidden="true">💻</div><h3>Some proxy</h3><p>IDK</p><span class="badge">Open link</span></a>
+        <a class="card" href="https://soundbuttonsworld.com/"><div class="icon" aria-hidden="true">🔘</div><h3>Sound board</h3><p>Brain fart</p><span class="badge">Open link</span></a>
+        <a class="card" href="https://www.youtube.com/"><div class="icon" aria-hidden="true">Y</div><h3>YouTube</h3><p>Videos</p><span class="badge">Open link</span></a>
+        <a class="card" href="https://scratch.mit.edu/users/mineCRAFT8374/"><div class="icon" aria-hidden="true">S</div><h3>Scratch</h3><p>Games are free on this thing.</p><span class="badge">Open link</span></a>
+        <a class="card" href="https://www.google.com/"><div class="icon" aria-hidden="true">G</div><h3>Google</h3><p>The OG.</p><span class="badge">Open link</span></a>
+      </section>
+    </main>
+
+    <script>
+      (() => {
+        'use strict';
+
+        // The riddle blocks page interaction until the visitor enters the right answer.
+        const riddleDialog = document.getElementById('welcome-riddle');
+        const riddleForm = document.getElementById('riddle-form');
+        const answerInput = document.getElementById('riddle-answer-input');
+        const riddleStatus = document.getElementById('riddle-status');
+        const mainContent = document.querySelector('main');
+        function lockPage() {
+          mainContent.style.filter = 'blur(4px)';
+          mainContent.style.pointerEvents = 'none';
+          mainContent.setAttribute('aria-hidden', 'true');
+        }
+        function unlockPage() {
+          mainContent.style.filter = '';
+          mainContent.style.pointerEvents = '';
+          mainContent.removeAttribute('aria-hidden');
+        }
+        lockPage();
+        riddleDialog.showModal();
+        answerInput.focus();
+        riddleForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+          if (answerInput.value.trim().toLowerCase() === 'a map') {
+            riddleDialog.close();
+            unlockPage();
+            return;
+          }
+          riddleStatus.textContent = 'That’s not right. Try again.';
+          answerInput.value = '';
+          answerInput.focus();
+        });
+        riddleDialog.addEventListener('cancel', (event) => event.preventDefault());
+
+        const USER_KEY = 'gamevault_user';
+        const PRESENCE_PREFIX = 'gamevault_presence_';
+        const STALE_AFTER_MS = 15000;
+        const HEARTBEAT_MS = 4000;
+        const tabId = (window.crypto && typeof window.crypto.randomUUID === 'function')
+          ? window.crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+        const usernameInput = document.getElementById('username');
+        const signedInText = document.getElementById('signed-in-text');
+        const playerCount = document.getElementById('player-count');
+        const playerList = document.getElementById('player-list');
+        let username = '';
+        let presenceAvailable = true;
+        try {
+          username = localStorage.getItem(USER_KEY) || '';
+          if (!/^[A-Za-z0-9 _-]{1,20}$/.test(username)) username = '';
+        } catch (_) { presenceAvailable = false; }
+        if (username) usernameInput.value = username;
+
+        function readActivePlayers() {
+          const now = Date.now();
+          const names = new Map();
+          if (!presenceAvailable) return names;
+          try {
+            for (let i = 0; i < localStorage.length; i += 1) {
+              const key = localStorage.key(i);
+              if (!key || !key.startsWith(PRESENCE_PREFIX)) continue;
+              let entry;
+              try { entry = JSON.parse(localStorage.getItem(key)); } catch (_) { continue; }
+              if (!entry || typeof entry.name !== 'string' || !Number.isFinite(entry.lastSeen) || now - entry.lastSeen > STALE_AFTER_MS || now < entry.lastSeen) {
+                localStorage.removeItem(key);
+                continue;
+              }
+              const safeName = entry.name.trim().slice(0, 20);
+              if (safeName) names.set(safeName.toLocaleLowerCase(), safeName);
+            }
+          } catch (_) { presenceAvailable = false; }
+          return names;
+        }
+        function updatePresence() {
+          if (!presenceAvailable || !username) return;
+          try { localStorage.setItem(`${PRESENCE_PREFIX}${tabId}`, JSON.stringify({ name: username, lastSeen: Date.now() })); }
+          catch (_) { presenceAvailable = false; }
+        }
+        function renderPlayers() {
+          const names = readActivePlayers();
+          playerCount.textContent = String(names.size);
+          playerList.replaceChildren();
+          if (!names.size) {
+            const empty = document.createElement('p');
+            empty.className = 'empty-state';
+            empty.textContent = 'No one has joined from this browser yet.';
+            playerList.append(empty);
+            return;
+          }
+          names.forEach((name) => {
+            const card = document.createElement('article');
+            card.className = 'player-card';
+            const nameElement = document.createElement('strong');
+            nameElement.textContent = name;
+            const status = document.createElement('span');
+            status.textContent = 'Active in this browser';
+            card.append(nameElement, status);
+            playerList.append(card);
+          });
+        }
+        document.getElementById('signin-form').addEventListener('submit', (event) => {
+          event.preventDefault();
+          const typedName = usernameInput.value.trim();
+          if (!/^[A-Za-z0-9 _-]{1,20}$/.test(typedName)) {
+            signedInText.textContent = 'Please use 1–20 letters, numbers, spaces, underscores, or hyphens.';
+            return;
+          }
+          username = typedName;
+          try { localStorage.setItem(USER_KEY, username); }
+          catch (_) { presenceAvailable = false; }
+          signedInText.textContent = `Signed in as ${username}. Presence is limited to this browser.`;
+          updatePresence();
+          renderPlayers();
+        });
+        window.addEventListener('storage', (event) => {
+          if (event.key === null || event.key.startsWith(PRESENCE_PREFIX)) renderPlayers();
+        });
+        updatePresence();
+        renderPlayers();
+        window.setInterval(() => { updatePresence(); renderPlayers(); }, HEARTBEAT_MS);
+        window.addEventListener('pagehide', () => {
+          try { localStorage.removeItem(`${PRESENCE_PREFIX}${tabId}`); } catch (_) { /* storage may be unavailable */ }
+        });
+
+        const uptimeElement = document.getElementById('uptime');
+        const pageStartedAt = Date.now();
+        function renderUptime() {
+          const seconds = Math.floor((Date.now() - pageStartedAt) / 1000);
+          const hours = Math.floor(seconds / 3600);
+          const minutes = Math.floor((seconds % 3600) / 60);
+          const remainder = seconds % 60;
+          uptimeElement.textContent = hours ? `${hours}h ${minutes}m` : minutes ? `${minutes}m ${remainder}s` : `${remainder}s`;
+        }
+        renderUptime();
+        window.setInterval(renderUptime, 1000);
+
+        const pingElement = document.getElementById('ping');
+        const samples = [];
+        async function measureSiteResponse() {
+          const startedAt = performance.now();
+          try {
+            const response = await fetch(`${window.location.pathname}?status-check=${Date.now()}`, {
+              method: 'HEAD', cache: 'no-store', credentials: 'same-origin'
+            });
+            if (!response.ok) throw new Error('Site check failed');
+            samples.push(performance.now() - startedAt);
+            if (samples.length > 5) samples.shift();
+            const average = samples.reduce((sum, value) => sum + value, 0) / samples.length;
+            pingElement.textContent = `${Math.round(average)}ms`;
+          } catch (_) {
+            pingElement.textContent = samples.length ? pingElement.textContent : 'Unavailable';
+          }
+        }
+        measureSiteResponse();
+        window.setInterval(measureSiteResponse, 15000);
+
+        const gameSearch = document.getElementById('game-search');
+        const gameCards = Array.from(document.querySelectorAll('#games .card'));
+        const searchStatus = document.getElementById('search-status');
+        gameSearch.addEventListener('input', () => {
+          const query = gameSearch.value.trim().toLocaleLowerCase();
+          let visibleCount = 0;
+          gameCards.forEach((card) => {
+            const matches = card.textContent.toLocaleLowerCase().includes(query);
+            card.hidden = !matches;
+            if (matches) visibleCount += 1;
+          });
+          searchStatus.textContent = query
+            ? visibleCount ? `Found ${visibleCount} ${visibleCount === 1 ? 'result' : 'results'}.` : 'No games found. Try another search.'
+            : 'Showing all games.';
+        });
+
+        const geminiKey = document.getElementById('gemini-key');
+        const geminiForm = document.getElementById('gemini-form');
+        const geminiPrompt = document.getElementById('gemini-prompt');
+        const geminiOutput = document.getElementById('gemini-output');
+        const geminiSubmit = document.getElementById('gemini-submit');
+        try { geminiKey.value = sessionStorage.getItem('gamevault_gemini_key') || ''; } catch (_) { /* session storage may be disabled */ }
+        geminiKey.addEventListener('input', () => {
+          try {
+            if (geminiKey.value.trim()) sessionStorage.setItem('gamevault_gemini_key', geminiKey.value.trim());
+            else sessionStorage.removeItem('gamevault_gemini_key');
+          } catch (_) { /* session storage may be disabled */ }
+        });
+        geminiForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const key = geminiKey.value.trim();
+          const prompt = geminiPrompt.value.trim();
+          if (!key) {
+            geminiOutput.textContent = 'Please enter your Gemini API key first.';
+            geminiKey.focus();
+            return;
+          }
+          geminiSubmit.disabled = true;
+          geminiOutput.textContent = 'Gemini is thinking…';
+          try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${encodeURIComponent(key)}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error?.message || 'Gemini request failed. Check your API key and try again.');
+            geminiOutput.textContent = result.candidates?.[0]?.content?.parts?.map((part) => part.text || '').join('') || 'Gemini returned no text.';
+          } catch (error) {
+            geminiOutput.textContent = error.message || 'Could not reach Gemini. Please try again.';
+          } finally {
+            geminiSubmit.disabled = false;
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
