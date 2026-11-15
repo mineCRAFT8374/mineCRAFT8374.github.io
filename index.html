@@ -8,7 +8,7 @@
     <title>🎮 Game Vault | Server Status</title>
     <style>
       * { box-sizing: border-box; }
-      :root { --bg:#f1f6ff; --text:#1e2a3a; --muted:#586d8c; --blue:#4d97ff; --purple:#a545ed; --green:#168744; --line:rgba(103,127,170,.2); }
+      :root { --bg:#f1f6ff; --text:#1e2a3a; --muted:#586d8c; --blue:#4d97ff; --line:rgba(103,127,170,.2); }
       body { margin:0; min-height:100vh; font-family:Arial,sans-serif; color:var(--text); background:linear-gradient(180deg,#f8faff,var(--bg)); }
       a { color:inherit; }
       .topbar { background:linear-gradient(180deg,#b351ff,#842bd1); border-bottom:3px solid rgba(67,25,105,.3); padding:14px 28px; display:flex; justify-content:space-between; align-items:center; gap:16px; }
@@ -21,28 +21,9 @@
       .tag { display:inline-block; padding:7px 10px; border-radius:999px; background:#dbeeff; color:#2873c6; font-size:.72rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; }
       h1 { margin:16px 0 10px; font-size:clamp(2rem,4vw,3.8rem); line-height:1.08; }
       .intro { max-width:700px; color:var(--muted); line-height:1.55; }
-      .metrics { margin-top:24px; display:grid; grid-template-columns:repeat(auto-fit,minmax(185px,1fr)); gap:14px; }
-      .metric { border:1px solid var(--line); border-radius:16px; padding:17px; background:#fbfdff; }
-      .metric-label { display:block; margin-bottom:9px; color:var(--muted); font-size:.72rem; letter-spacing:1px; text-transform:uppercase; font-weight:700; }
-      .metric-value { font-size:clamp(1.5rem,2vw,2rem); font-weight:900; }
-      .metric-sub { margin-top:6px; color:var(--muted); font-size:.8rem; }
-      .scope-note { margin:16px 0 0; color:var(--muted); font-size:.85rem; line-height:1.5; }
-      .signin-panel { margin-top:22px; padding:17px; border-radius:16px; background:#f4f9ff; border:1px solid var(--line); }
-      .signin-panel h2 { margin:0 0 12px; font-size:1.15rem; }
-      .signin-form { display:flex; gap:10px; flex-wrap:wrap; }
-      .signin-form input { flex:1 1 220px; min-width:180px; padding:12px 14px; border:1px solid #bdcbe0; border-radius:10px; font:inherit; }
-      button { padding:12px 17px; border:0; border-radius:10px; background:#ffab19; color:#1d1d1d; font-weight:800; cursor:pointer; }
-      button:hover { filter:brightness(.96); }
-      .signin-note { min-height:1.2em; margin:9px 0 0; color:var(--muted); font-size:.84rem; }
-      .schedule { margin-top:28px; }
-      .schedule h2,.game-tools h2 { margin:0; font-size:clamp(1.4rem,2vw,2rem); }
-      .player-list { margin-top:17px; display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; }
-      .player-card { padding:14px; border:1px solid var(--line); border-radius:14px; background:#fbfdff; }
-      .player-card strong { display:block; overflow-wrap:anywhere; }
-      .player-card span { display:block; margin-top:5px; color:var(--muted); font-size:.84rem; }
-      .empty-state { color:var(--muted); }
       .games { margin-top:30px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
       .game-tools { grid-column:1/-1; display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; }
+      .game-tools h2 { margin:0; font-size:clamp(1.4rem,2vw,2rem); }
       .game-search { flex:1 1 260px; max-width:420px; width:100%; padding:12px 14px; border:1px solid rgba(77,151,255,.4); border-radius:10px; font:inherit; }
       .search-status { grid-column:1/-1; margin:0; color:var(--muted); font-size:.9rem; }
       .card { display:block; padding:19px; border:1px solid rgba(77,151,255,.2); border-radius:17px; background:#fff; text-decoration:none; box-shadow:0 9px 22px rgba(28,53,82,.05); transition:transform .18s ease,box-shadow .18s ease; }
@@ -52,38 +33,34 @@
       .card h3 { margin:0 0 7px; font-size:1.25rem; }
       .card p { margin:0; color:var(--muted); line-height:1.45; }
       .badge { display:inline-block; margin-top:14px; padding:7px 10px; border-radius:999px; background:#ffab19; color:#1d1d1d; font-size:.72rem; font-weight:800; text-transform:uppercase; }
+      .riddle-dialog { width:min(520px,calc(100% - 32px)); padding:28px; border:0; border-radius:20px; color:var(--text); box-shadow:0 20px 60px rgba(20,30,50,.3); }
+      .riddle-dialog::backdrop { background:rgba(22,30,48,.65); }
+      .riddle-dialog h2 { margin:0 0 12px; }
+      .riddle-dialog p { line-height:1.6; }
+      .riddle-answer { padding:12px 14px; border-radius:10px; background:#e9f7ee; color:#176b37; font-weight:800; }
+      .riddle-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:20px; }
+      button { padding:11px 16px; border:0; border-radius:10px; background:#ffab19; color:#1d1d1d; font:inherit; font-weight:800; cursor:pointer; }
+      button:hover { filter:brightness(.96); }
       @media (max-width:680px) { .topbar { flex-direction:column; padding:14px 18px; } .hero,.schedule { padding:20px 17px; } }
     </style>
   </head>
   <body>
+    <dialog class="riddle-dialog" id="welcome-riddle" aria-labelledby="riddle-title">
+      <span class="tag">Welcome challenge</span>
+      <h2 id="riddle-title">Can you solve this riddle?</h2>
+      <p>“I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I?”</p>
+      <p class="riddle-answer">Answer: A map.</p>
+      <div class="riddle-actions"><button id="close-riddle" type="button">Enter Game Vault</button></div>
+    </dialog>
     <header class="topbar">
       <div class="brand">Game Vault</div>
-      <nav class="nav" aria-label="Main navigation"><a href="#home">Home</a><a href="#games">Arcade</a><a href="#games">Favorites</a><a href="#status">Status</a><a href="#players">Players</a></nav>
+      <nav class="nav" aria-label="Main navigation"><a href="#home">Home</a><a href="#games">Arcade</a><a href="#games">Favorites</a><a href="#status">Status</a></nav>
     </header>
     <main class="container" id="home">
       <section class="hero" aria-labelledby="page-title">
-        <span class="tag">Live browser status</span>
+        <span class="tag">Welcome to the arcade</span>
         <h1 id="page-title">Game Vault</h1>
-        <p class="intro">Browse the game collection and see current measurements from this browser session.</p>
-        <div class="metrics" aria-label="Live browser metrics">
-          <div class="metric"><span class="metric-label">Active players here</span><div class="metric-value" id="player-count" aria-live="polite">0</div><div class="metric-sub">Signed-in players in this browser</div></div>
-          <div class="metric"><span class="metric-label">Page session uptime</span><div class="metric-value" id="uptime">0m</div><div class="metric-sub">Time this page has stayed open</div></div>
-          <div class="metric"><span class="metric-label">Avg site response</span><div class="metric-value" id="ping">Measuring…</div><div class="metric-sub">Recent requests to this website</div></div>
-        </div>
-        <p class="scope-note">These are live browser-local measurements, not global server statistics: player presence is shared only between tabs in the same browser profile. GitHub Pages does not provide a global player service or server-uptime API.</p>
-        <div class="signin-panel">
-          <h2>Join this browser session</h2>
-          <form id="signin-form" class="signin-form">
-            <label for="username" class="visually-hidden">Gamer tag</label>
-            <input id="username" type="text" maxlength="20" autocomplete="nickname" placeholder="Enter gamer tag" required pattern="[A-Za-z0-9 _-]{1,20}" title="Use 1–20 letters, numbers, spaces, underscores, or hyphens." />
-            <button type="submit">Join</button>
-          </form>
-          <p id="signed-in-text" class="signin-note" aria-live="polite">Use a gamer tag to appear in this browser’s active player list.</p>
-        </div>
-      </section>
-      <section class="schedule" id="players" aria-labelledby="players-title">
-        <span class="tag">Browser presence</span><h2 id="players-title">Players active in this browser</h2>
-        <div id="player-list" class="player-list" aria-live="polite"></div>
+        <p class="intro">Browse the game collection and find something fun to play.</p>
       </section>
       <section class="games" id="games" aria-label="Game selection">
         <div class="game-tools"><h2>Find a game</h2><input id="game-search" class="game-search" type="search" placeholder="Search games..." aria-label="Search games" autocomplete="off" /></div>
@@ -105,132 +82,10 @@
     </main>
     <script>
       (() => {
-        'use strict';
-        const USER_KEY = 'gamevault_user';
-        const PRESENCE_PREFIX = 'gamevault_presence_';
-        const STALE_AFTER_MS = 15000;
-        const HEARTBEAT_MS = 4000;
-        const tabId = (window.crypto && typeof window.crypto.randomUUID === 'function')
-          ? window.crypto.randomUUID()
-          : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-        const usernameInput = document.getElementById('username');
-        const signedInText = document.getElementById('signed-in-text');
-        const playerCount = document.getElementById('player-count');
-        const playerList = document.getElementById('player-list');
-        let username = '';
-        let presenceAvailable = true;
-        try {
-          username = localStorage.getItem(USER_KEY) || '';
-          if (!/^[A-Za-z0-9 _-]{1,20}$/.test(username)) username = '';
-        } catch (_) { presenceAvailable = false; }
-        if (username) usernameInput.value = username;
-
-        function readActivePlayers() {
-          const now = Date.now();
-          const names = new Map();
-          if (!presenceAvailable) return names;
-          try {
-            for (let i = 0; i < localStorage.length; i += 1) {
-              const key = localStorage.key(i);
-              if (!key || !key.startsWith(PRESENCE_PREFIX)) continue;
-              let entry;
-              try { entry = JSON.parse(localStorage.getItem(key)); } catch (_) { continue; }
-              if (!entry || typeof entry.name !== 'string' || !Number.isFinite(entry.lastSeen) || now - entry.lastSeen > STALE_AFTER_MS || now < entry.lastSeen) {
-                localStorage.removeItem(key);
-                continue;
-              }
-              const safeName = entry.name.trim().slice(0, 20);
-              if (safeName) names.set(safeName.toLocaleLowerCase(), safeName);
-            }
-          } catch (_) { presenceAvailable = false; }
-          return names;
-        }
-
-        function updatePresence() {
-          if (!presenceAvailable || !username) return;
-          try { localStorage.setItem(`${PRESENCE_PREFIX}${tabId}`, JSON.stringify({ name: username, lastSeen: Date.now() })); }
-          catch (_) { presenceAvailable = false; }
-        }
-
-        function renderPlayers() {
-          const names = readActivePlayers();
-          playerCount.textContent = String(names.size);
-          playerList.replaceChildren();
-          if (!names.size) {
-            const empty = document.createElement('p');
-            empty.className = 'empty-state';
-            empty.textContent = 'No one has joined from this browser yet.';
-            playerList.append(empty);
-            return;
-          }
-          names.forEach((name) => {
-            const card = document.createElement('article');
-            card.className = 'player-card';
-            const nameElement = document.createElement('strong');
-            nameElement.textContent = name;
-            const status = document.createElement('span');
-            status.textContent = 'Active in this browser';
-            card.append(nameElement, status);
-            playerList.append(card);
-          });
-        }
-
-        document.getElementById('signin-form').addEventListener('submit', (event) => {
-          event.preventDefault();
-          const typedName = usernameInput.value.trim();
-          if (!/^[A-Za-z0-9 _-]{1,20}$/.test(typedName)) {
-            signedInText.textContent = 'Please use 1–20 letters, numbers, spaces, underscores, or hyphens.';
-            return;
-          }
-          username = typedName;
-          try { localStorage.setItem(USER_KEY, username); }
-          catch (_) { presenceAvailable = false; }
-          signedInText.textContent = `Signed in as ${username}. Presence is limited to this browser.`;
-          updatePresence();
-          renderPlayers();
-        });
-
-        window.addEventListener('storage', (event) => {
-          if (event.key === null || event.key.startsWith(PRESENCE_PREFIX)) renderPlayers();
-        });
-        updatePresence();
-        renderPlayers();
-        window.setInterval(() => { updatePresence(); renderPlayers(); }, HEARTBEAT_MS);
-        window.addEventListener('pagehide', () => {
-          try { localStorage.removeItem(`${PRESENCE_PREFIX}${tabId}`); } catch (_) { /* storage may be unavailable */ }
-        });
-
-        const uptimeElement = document.getElementById('uptime');
-        const pageStartedAt = Date.now();
-        function renderUptime() {
-          const seconds = Math.floor((Date.now() - pageStartedAt) / 1000);
-          const hours = Math.floor(seconds / 3600);
-          const minutes = Math.floor((seconds % 3600) / 60);
-          const remainder = seconds % 60;
-          uptimeElement.textContent = hours ? `${hours}h ${minutes}m` : minutes ? `${minutes}m ${remainder}s` : `${remainder}s`;
-        }
-        renderUptime();
-        window.setInterval(renderUptime, 1000);
-
-        const pingElement = document.getElementById('ping');
-        const samples = [];
-        async function measureSiteResponse() {
-          const startedAt = performance.now();
-          try {
-            const response = await fetch(`${window.location.pathname}?status-check=${Date.now()}`, {
-              method: 'HEAD', cache: 'no-store', credentials: 'same-origin'
-            });
-            if (!response.ok) throw new Error('Site check failed');
-            samples.push(performance.now() - startedAt);
-            if (samples.length > 5) samples.shift();
-            const average = samples.reduce((sum, value) => sum + value, 0) / samples.length;
-            pingElement.textContent = `${Math.round(average)}ms`;
-          } catch (_) {
-            pingElement.textContent = samples.length ? pingElement.textContent : 'Unavailable';
-          }
-        }
-        measureSiteResponse();
-        window.setInterval(measureSiteResponse, 15000);
+        const riddle = document.getElementById('welcome-riddle');
+        const closeRiddle = document.getElementById('close-riddle');
+        if (typeof riddle.showModal === 'function') riddle.showModal();
+        closeRiddle.addEventListener('click', () => riddle.close());
 
         const gameSearch = document.getElementById('game-search');
         const gameCards = Array.from(document.querySelectorAll('#games .card'));
